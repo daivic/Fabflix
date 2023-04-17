@@ -36,12 +36,16 @@ function handleStarResult(resultData) {
         rowHTML += "<th>" + resultData[i]["movie_year"] + "</th>";
         rowHTML += "<th>" + resultData[i]["movie_dir"] + "</th>";
         rowHTML += "<th>" + resultData[i]["movie_genres"] + "</th>";
-        rowHTML += "<th>" +
-        // Add a link to single-star.html with id passed with GET url parameter
-        '<a href="single-star.html?id=' + resultData[i]['star_id'] + '">'
-        + resultData[i]["movie_stars"] +     // display star_name for the link text
-        '</a>' +
-        "</th>";
+        rowHTML += "<th>";
+
+        const stars = resultData[i]["movie_stars"].split(",");
+        const ids = resultData[i]["star_ids"].split(",");
+
+        for (let i = 0; i < stars.length; i++) {
+                rowHTML += '<a href="single-star.html?id=' + ids[i] + '">' + stars[i] +'</a>' ;
+                rowHTML += ", "
+        }
+        rowHTML +=  "</th>";
         rowHTML += "<th>" + resultData[i]["movie_rating"] + "</th>";
 
         rowHTML += "</tr>";
