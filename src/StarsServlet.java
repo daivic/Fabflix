@@ -48,7 +48,7 @@ public class StarsServlet extends HttpServlet {
             // Declare our statement
             Statement statement = conn.createStatement();
 
-            String query = "SELECT m.title, m.year, m.director, substring_index(group_concat(distinct g.name ORDER BY g.name SEPARATOR ', '), ',', 3) AS genre,\n " +
+            String query = "SELECT m.id, m.title, m.year, m.director, substring_index(group_concat(distinct g.name ORDER BY g.name SEPARATOR ', '), ',', 3) AS genre,\n " +
                     "substring_index(GROUP_CONCAT(s.name ORDER BY g.name SEPARATOR ', '), ',', 3) AS star, r.rating," +
                     "substring_index(GROUP_CONCAT(s.id ORDER BY g.name SEPARATOR ','), ',', 3) AS starId \n" +
                     "FROM movies m \n" +
@@ -77,6 +77,7 @@ public class StarsServlet extends HttpServlet {
                 String movieStars =  rs.getString("star");
                 float movieRating =  rs.getFloat("rating");
                 String starIds  = rs.getString("starId");
+                String movieId  = rs.getString("id");
 
 
                 // Create a JsonObject based on the data we retrieve from rs
@@ -88,6 +89,8 @@ public class StarsServlet extends HttpServlet {
                 jsonObject.addProperty("movie_genres", movieGenres);
                 jsonObject.addProperty("movie_stars", movieStars);
                 jsonObject.addProperty("movie_rating", movieRating);
+                jsonObject.addProperty("movie_id", movieId);
+
 
                 jsonArray.add(jsonObject);
             }

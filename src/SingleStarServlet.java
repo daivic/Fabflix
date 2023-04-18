@@ -53,8 +53,12 @@ public class SingleStarServlet extends HttpServlet {
             // Get a connection from dataSource
 
             // Construct a query with parameter represented by "?"
-            String query = "SELECT * from stars as s, stars_in_movies as sim, movies as m " +
-                    "where m.id = sim.movieId and sim.starId = s.id and s.id = ?";
+            String query = "SELECT s.name, s.birthYear, GROUP_CONCAT(m.title) AS movies " +
+                    "FROM stars s "+
+                    "INNER JOIN stars_in_movies sm ON s.id = sm.starId "+
+                    "INNER JOIN movies m ON sm.movieId = m.id "+
+                    "WHERE s.id = ? "+
+                    "GROUP BY s.id;";
 
             // Declare our statement
             PreparedStatement statement = conn.prepareStatement(query);
@@ -73,9 +77,7 @@ public class SingleStarServlet extends HttpServlet {
 
                 String starName = rs.getString("name");
                 String starDob = rs.getString("birthYear");
-                String movieTitle = rs.getString("title");
-                String movieId = rs.getString("movieId");
-
+                String movieTitle = rs.getString("movies");
 
                 // Create a JsonObject based on the data we retrieve from rs
 
@@ -83,7 +85,6 @@ public class SingleStarServlet extends HttpServlet {
                 jsonObject.addProperty("star_name", starName);
                 jsonObject.addProperty("star_dob", starDob);
                 jsonObject.addProperty("movie_title", movieTitle);
-                jsonObject.addProperty("movie_id", movieId);
 
 
                 jsonArray.add(jsonObject);

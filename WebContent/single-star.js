@@ -49,18 +49,23 @@ function handleResult(resultData) {
         "<p>Date Of Birth: " + resultData[0]["star_dob"] + "</p>");
 
     console.log("handleResult: populating movie table from resultData");
-
+    console.log(resultData[0]["star_dob"]);
     // Populate the star table
     // Find the empty table body by id "movie_table_body"
     let movieTableBodyElement = jQuery("#movie_table_body");
 
     // Concatenate the html tags with resultData jsonObject to create table rows
     for (let i = 0; i < Math.min(10, resultData.length); i++) {
-        let rowHTML = "";
-        rowHTML += "<tr>";
-        rowHTML += "<th>" + resultData[i]["movie_title"] + "</th>";
-        rowHTML += "</tr>";
 
+        let rowHTML = "";
+
+        const movies = resultData[i]["movie_title"].split(",");
+
+        for (let i = 0; i < movies.length; i++) {
+            rowHTML += "<tr>";
+            rowHTML += "<th>" + movies[i] + "</th>";
+            rowHTML += "</tr>";
+        }
         // Append the row created to the table body, which will refresh the page
         movieTableBodyElement.append(rowHTML);
     }

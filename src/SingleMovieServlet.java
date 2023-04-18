@@ -54,7 +54,7 @@ public class SingleMovieServlet extends HttpServlet {
 
             // Construct a query with parameter represented by "?"
             String query = "SELECT m.title, m.year, m.director, m.id, group_concat(distinct g.name ORDER BY g.name SEPARATOR ', ') AS genre," +
-                    "GROUP_CONCAT(s.name ORDER BY s.name SEPARATOR ', ') AS star, GROUP_CONCAT(s.id SEPARATOR ', ') AS star, r.rating "+
+                    "GROUP_CONCAT(s.name ORDER BY s.name SEPARATOR ', ') AS star, GROUP_CONCAT(s.id SEPARATOR ', ') AS starId, r.rating "+
                     "FROM movies m \n" +
                     "JOIN ratings r ON m.id = r.movieId \n" +
                     "JOIN genres_in_movies gm ON m.id = gm.movieId\n" +
@@ -87,7 +87,7 @@ public class SingleMovieServlet extends HttpServlet {
                 String movieGenres = rs.getString("genre");
                 String movieStars = rs.getString("star");
                 float movieRating = rs.getFloat("rating");
-
+                String starIds = rs.getString("starId");
 
                 // Create a JsonObject based on the data we retrieve from rs
 
@@ -99,6 +99,7 @@ public class SingleMovieServlet extends HttpServlet {
                 jsonObject.addProperty("movie_genres", movieGenres);
                 jsonObject.addProperty("movie_stars", movieStars);
                 jsonObject.addProperty("movie_rating", movieRating);
+                jsonObject.addProperty("star_ids", starIds);
 
                 jsonArray.add(jsonObject);
             }
