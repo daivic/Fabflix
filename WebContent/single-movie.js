@@ -43,15 +43,15 @@ function handleResult(resultData) {
     // populate the star info h3
     // find the empty h3 body by id "star_info"
     let movieInfoElement = jQuery("#movie_info");
-
+    let addmovie = jQuery("#add_info")
+    let dir = resultData[0]["movie_director"];
+    let genres = resultData[0]["movie_genres"];
+    let rating = resultData[0]["movie_rating"];
     // append two html <p> created to the h3 body, which will refresh the page
     // movieInfoElement.append("<p>Movie Name: " + resultData[0]["movie_name"] + "</p>" +
     //    "<p>Date Of Birth: " + resultData[0]["star_dob"] + "</p>");
-    movieInfoElement.append("<p>Movie Name: " + resultData[0]["movie_title"] + "</p>" +
-        "<p>Release year: " + resultData[0]["movie_year"] + "</p>"+
-        "<p>Director: " + resultData[0]["movie_director"] + "</p>"+
-        "<p>Genres: " + resultData[0]["movie_genres"] + "</p>" +
-        "<p>Rating: " + resultData[0]["movie_rating"] + "</p>");
+    movieInfoElement.append(resultData[0]["movie_title"] +
+        "<i>(" + resultData[0]["movie_year"] + ")</i>");
 
     console.log("handleResult: populating movie table from resultData");
 
@@ -60,8 +60,21 @@ function handleResult(resultData) {
     let movieTableBodyElement = jQuery("#movie_table_body");
 
 // Concatenate the html tags with resultData jsonObject to create table rows
-
-
+    let rowHTML = "<table>\n" +
+    "    <!-- Create a table header -->\n" +
+    "        <thead>\n" +
+    "        <tr>\n" +
+    "            <th>Director</th>\n" +
+    "            <th>Genres</th>\n" +
+    "            <th>Rating</th>\n" +
+    "        </tr>\n" +
+    "        </thead>"+
+        "<tr> <th>"+dir+" </th>" +
+        " <th> "+genres+"</th>" +
+        " <th>"+rating+" </th>" +
+        "</tr>" +
+        "</table>";
+    addmovie.append(rowHTML);
     const stars = resultData[0]["movie_stars"].split(",");
     const ids = resultData[0]["star_ids"].split(",");
     //just added

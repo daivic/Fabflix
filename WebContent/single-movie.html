@@ -17,8 +17,43 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>Single Movie</title>
+    <title> Movie</title>
 </head>
+
+<style>
+
+
+    table {
+    }
+
+    td {
+        text-align: left;
+        padding: 8px;
+
+    }
+
+    th{
+
+    }
+
+    tr:nth-child(even) {
+        background-color: #c7dbff;
+    }
+    tr:nth-child(odd){
+
+        background-color: #fef4ce;
+    }
+
+    tr:nth-child(even):hover {
+        background-color: rgb(217, 255, 217);
+    }
+    tr:nth-child(odd):hover{
+
+        background-color: rgb(217, 255, 217);
+    }
+
+</style>
+
 <body>
 <button onclick="window.location.href = 'index.html';">HOME</button>
 
@@ -26,12 +61,12 @@
 <!-- H3 body is left empty here, will be populated with the data retrieved with single-star.js -->
 <!-- single-star.js will find this html element by it's id "movie-info" -->
 <h3 id="movie_info"></h3>
-<table id=movie_table class="table table-striped">
+<table id="add_info" class="table table-striped"></table>
+<table id="movie_table" class="table table-striped">
     <thead>
     <tr>
         <th>Stars</th>
 
-        <th>
     </tr>
     </thead>
 
