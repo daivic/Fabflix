@@ -53,8 +53,8 @@ public class SingleMovieServlet extends HttpServlet {
             // Get a connection from dataSource
 
             // Construct a query with parameter represented by "?"
-            String query = "SELECT m.title, m.year, m.director, m.id, group_concat(distinct g.name ORDER BY g.name SEPARATOR ', ') AS genre," +
-                    "GROUP_CONCAT(s.name ORDER BY s.name SEPARATOR ', ') AS star, GROUP_CONCAT(s.id SEPARATOR ', ') AS starId, r.rating "+
+            String query = "SELECT m.title, m.year, m.director, m.id, group_concat(distinct g.name ORDER BY g.name SEPARATOR ',') AS genre," +
+                    "GROUP_CONCAT(distinct s.name ORDER BY s.name SEPARATOR ',') AS star, GROUP_CONCAT(distinct s.id ORDER BY s.name SEPARATOR ',') AS starId, r.rating "+
                     "FROM movies m \n" +
                     "JOIN ratings r ON m.id = r.movieId \n" +
                     "JOIN genres_in_movies gm ON m.id = gm.movieId\n" +

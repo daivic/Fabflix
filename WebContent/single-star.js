@@ -60,11 +60,21 @@ function handleResult(resultData) {
         let rowHTML = "";
 
         const movies = resultData[i]["movie_title"].split(",");
+        const moviesId = resultData[i]["movie_id"].split(",");
 
         for (let i = 0; i < movies.length; i++) {
+            let rowHTML = "";
             rowHTML += "<tr>";
-            rowHTML += "<th>" + movies[i] + "</th>";
+            rowHTML +=
+                "<th>" +
+                // Add a link to single-movie.html with id passed with GET url parameter
+                '<a href="single-movie.html?id=' + moviesId[i] + '">'
+                + movies[i] +     // display star_name for the link text
+                '</a>' +
+                "</th>";
             rowHTML += "</tr>";
+            movieTableBodyElement.append(rowHTML);
+
         }
         // Append the row created to the table body, which will refresh the page
         movieTableBodyElement.append(rowHTML);

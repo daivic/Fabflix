@@ -70,7 +70,6 @@ function handleResult(resultData) {
         rowHTML += '<a href="single-star.html?id=' + ids[i] + '">' + stars[i] +'</a>' ;
         rowHTML += ", "
     }
-    rowHtml = rowHtml
     rowHTML +=  "</th>";
     rowHTML += "<th>" + resultData[0]["movie_rating"] + "</th>";
 
