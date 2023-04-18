@@ -47,6 +47,11 @@ function handleResult(resultData) {
     // append two html <p> created to the h3 body, which will refresh the page
     // movieInfoElement.append("<p>Movie Name: " + resultData[0]["movie_name"] + "</p>" +
     //    "<p>Date Of Birth: " + resultData[0]["star_dob"] + "</p>");
+    movieInfoElement.append("<p>Movie Name: " + resultData[0]["movie_title"] + "</p>" +
+        "<p>Release year: " + resultData[0]["movie_year"] + "</p>"+
+        "<p>Director: " + resultData[0]["movie_director"] + "</p>"+
+        "<p>Genres: " + resultData[0]["movie_genres"] + "</p>" +
+        "<p>Rating: " + resultData[0]["movie_rating"] + "</p>");
 
     console.log("handleResult: populating movie table from resultData");
 
@@ -56,29 +61,23 @@ function handleResult(resultData) {
 
 // Concatenate the html tags with resultData jsonObject to create table rows
 
-    let rowHTML = "";
-    rowHTML += "<tr>";
-    rowHTML += "<th>" + resultData[0]["movie_title"] + "</th>";
-    rowHTML += "<th>" + resultData[0]["movie_year"] + "</th>";
-    rowHTML += "<th>" + resultData[0]["movie_director"] + "</th>";
-    rowHTML += "<th>" + resultData[0]["movie_genres"] + "</th>";
-    rowHTML += "<th>";
+
     const stars = resultData[0]["movie_stars"].split(",");
     const ids = resultData[0]["star_ids"].split(",");
     //just added
     for (let i = 0; i < stars.length; i++) {
+        let rowHTML = "";
+        rowHTML += "<tr>";
+        rowHTML += "<th>";
+
         rowHTML += '<a href="single-star.html?id=' + ids[i] + '">' + stars[i] +'</a>' ;
-        rowHTML += ", "
+        rowHTML +=  "</th>";
+        rowHTML += "</tr>";
+
+        // Append the row created to the table body, which will refresh the page
+        movieTableBodyElement.append(rowHTML);
     }
-    rowHTML +=  "</th>";
-    rowHTML += "<th>" + resultData[0]["movie_rating"] + "</th>";
 
-
-
-    rowHTML += "</tr>";
-
-    // Append the row created to the table body, which will refresh the page
-    movieTableBodyElement.append(rowHTML);
 
 }
 
