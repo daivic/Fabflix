@@ -1,3 +1,5 @@
+YOUTUBE VIDEO: https://youtu.be/Qlc4j4n8wfY
+
 Daivic:
 
 - Single Star Page
