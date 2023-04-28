@@ -57,10 +57,42 @@ public class FormServlet extends HttpServlet {
             Statement statement = dbCon.createStatement();
 
             // Retrieve parameter "name" from the http request, which refers to the value of <input name="name"> in movielist.html
-            String name = request.getParameter("name");
+            String title = request.getParameter("title");
+            String director = request.getParameter("director");
+            String star = request.getParameter("star");
+            String year = request.getParameter("year");
 
-            // Generate a SQL query
-            String query = String.format("SELECT * from stars where name like '%s'", name);
+
+
+
+            // Generate a SQL query (this one is with all of the search variables);
+            String query = String.format("SELECT m.title, m.year, m.director\n" +
+                    "FROM movies m\n" +
+                    "INNER JOIN stars_in_movies sim ON m.id = sim.movieId\n" +
+                    "INNER JOIN stars s ON s.id = sim.starId\n" +
+                    "WHERE (m.title LIKE '%s' or m.title is null)\n", title);
+            query += String.format("AND (m.director LIKE '%1$s' or '%1$s' is null)\n", director);
+            query += String.format("AND (s.name LIKE '%1$s' or '%1$s' is null)\n", star);
+            query += String.format("AND (m.year = '%1$s' or '%1$s' is null);", year);
+            out.println(query);
+
+//            String query = String.format("SELECT m.title, m.year, m.director\n" +
+//                    "FROM movies m\n" +
+//                    "INNER JOIN stars_in_movies sim ON m.id = sim.movieId\n" +
+//                   "INNER JOIN stars s ON s.id = sim.starId\n" +
+//                    "WHERE (m.title LIKE '%%'or m.title is null)\n"+
+//            "AND (m.director LIKE '%%' or m.director is null)\n"+
+//            "AND (s.name LIKE '%s' or s.name is null)\n"+
+//            "AND (m.year = 2004 or m.year is null);", name);
+
+//            String query = "SELECT m.title, m.year, m.director\n" +
+//                    "FROM movies m\n" +
+//                    "INNER JOIN stars_in_movies sim ON m.id = sim.movieId\n" +
+//                    "INNER JOIN stars s ON s.id = sim.starId\n" +
+//                    "WHERE (m.title LIKE '%Terminal%'or m.title is null)\n" +
+//                    "AND (m.director LIKE '%%' or m.director is null)\n" +
+//                    "AND (s.name LIKE '%Tom Hanks%' or s.name is null)\n" +
+//                    "AND (m.year = 2004 or m.year is null);";
 
 
             // Log to localhost log
@@ -68,15 +100,16 @@ public class FormServlet extends HttpServlet {
 
             // Perform the query
             ResultSet rs = statement.executeQuery(query);
+
             // Create a html <table>
             out.println("<table border>");
 
             // Iterate through each row of rs and create a table row <tr>
-            out.println("<tr><td>ID</td><td>Name</td></tr>");
+            out.println("<tr><td>title</td><td>year</td></tr>");
             while (rs.next()) {
-                String m_ID = rs.getString("ID");
-                String m_Name = rs.getString("name");
-                out.println(String.format("<tr><td>%s</td><td>%s</td></tr>", m_ID, m_Name));
+                String m_title = rs.getString("title");
+                String m_year = rs.getString("year");
+                out.println(String.format("<tr><td>%s</td><td>%s</td></tr>", m_title, m_year));
             }
             out.println("</table>");
 
