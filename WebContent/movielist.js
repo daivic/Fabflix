@@ -87,12 +87,23 @@ let movieTitle = getParameterByName('title');
 let movieDir = getParameterByName('director');
 let movieStar = getParameterByName('star');
 let movieYear = getParameterByName('year');
+let movieGenre = getParameterByName('genre');
 
 
 
+if (movieGenre != null){
+    jQuery.ajax({
+        dataType: "json", // Setting return data type
+        method: "GET", // Setting request method
+        url: "api/movielistgenre?genre" + movieGenre,
+        success: (resultData) => handleStarResult(resultData) // Setting callback function to handle data returned successfully by the StarsServlet
+    });
+}
+else{
 jQuery.ajax({
     dataType: "json", // Setting return data type
     method: "GET", // Setting request method
-    url: "api/form?title="+ movieTitle+"&director="+movieDir+"&star="+movieStar+"&year="+movieYear    , // Setting request url, which is mapped by StarsServlet in Stars.java
+    url: "api/search?title="+ movieTitle+"&director="+movieDir+"&star="+movieStar+"&year="+movieYear    , // Setting request url, which is mapped by StarsServlet in Stars.java
     success: (resultData) => handleStarResult(resultData) // Setting callback function to handle data returned successfully by the StarsServlet
 });
+};
