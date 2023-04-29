@@ -1,5 +1,8 @@
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -18,7 +21,7 @@ import java.sql.Statement;
  */
 
 // Declaring a WebServlet called FormServlet, which maps to url "/form"
-@WebServlet(name = "FormServlet", urlPatterns = "/form")
+@WebServlet(name = "FormServlet", urlPatterns = "/api/movielist")
 public class FormServlet extends HttpServlet {
 
     // Create a dataSource which registered in web.xml
@@ -36,16 +39,16 @@ public class FormServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
-        response.setContentType("text/html");    // Response mime type
+        response.setContentType("application/json");    // Response mime type
 
         // Output stream to STDOUT
         PrintWriter out = response.getWriter();
 
         // Building page head with title
-        out.println("<html><head><title>MovieDBExample: Found Records</title></head>");
+        //out.println("<html><head><title>MovieDBExample: Found Records</title></head>");
 
         // Building page body
-        out.println("<body><h1>MovieDBExample: Found Records</h1>");
+        //out.println("<body><h1>MovieDBExample: Found Records</h1>");
 
 
         try {
@@ -58,23 +61,32 @@ public class FormServlet extends HttpServlet {
 
             // Retrieve parameter "name" from the http request, which refers to the value of <input name="name"> in movielist.html
             String title = request.getParameter("title");
+
             String director = request.getParameter("director");
             String star = request.getParameter("star");
             String year = request.getParameter("year");
-
-
+            //System.out.println(2004);
 
 
             // Generate a SQL query (this one is with all of the search variables);
-            String query = String.format("SELECT m.title, m.year, m.director\n" +
-                    "FROM movies m\n" +
-                    "INNER JOIN stars_in_movies sim ON m.id = sim.movieId\n" +
-                    "INNER JOIN stars s ON s.id = sim.starId\n" +
-                    "WHERE (m.title LIKE '%s' or m.title is null)\n", title);
-            query += String.format("AND (m.director LIKE '%1$s' or '%1$s' is null)\n", director);
-            query += String.format("AND (s.name LIKE '%1$s' or '%1$s' is null)\n", star);
-            query += String.format("AND (m.year = '%1$s' or '%1$s' is null);", year);
-            out.println(query);
+            String query = String.format("SELECT m.id, m.title, m.year, m.director,\n" +
+                    "GROUP_CONCAT(DISTINCT g.name ORDER BY g.name SEPARATOR ', ') AS genre, \n"+
+                    "GROUP_CONCAT(DISTINCT s.name ORDER BY s.name SEPARATOR ', ') AS star, \n"+
+            "r.rating,\n"+
+                    "GROUP_CONCAT(DISTINCT s.id ORDER BY s.name SEPARATOR ',') AS starId \n"+
+            "FROM movies m\n"+
+            "JOIN genres_in_movies gm ON m.id = gm.movieId\n"+
+            "JOIN genres g ON gm.genreId = g.id\n"+
+            "JOIN stars_in_movies sm ON m.id = sm.movieId\n"+
+            "JOIN stars s ON sm.starId = s.id\n"+
+            "JOIN ratings r ON m.id = r.movieId\n"+
+                    "WHERE (m.title LIKE '%1$s' or '%1$s' = '')\n", title);
+            query += String.format("AND (m.director LIKE '%1$s' or '%1$s' = '')\n", director);
+            query += String.format("AND (s.name LIKE '%1$s' or '%1$s' = '')\n", star);
+            query += String.format("AND (m.year = '%1$s' or '%1$s' = '')", year);
+            query += "GROUP BY m.id\n" +
+                    "ORDER BY r.rating DESC;";
+            //System.out.println(query);
 
 //            String query = String.format("SELECT m.title, m.year, m.director\n" +
 //                    "FROM movies m\n" +
@@ -100,24 +112,54 @@ public class FormServlet extends HttpServlet {
 
             // Perform the query
             ResultSet rs = statement.executeQuery(query);
+            JsonArray jsonArray = new JsonArray();
 
             // Create a html <table>
-            out.println("<table border>");
+            //out.println("<table border>");
 
             // Iterate through each row of rs and create a table row <tr>
-            out.println("<tr><td>title</td><td>year</td></tr>");
+            //out.println("<tr><td>title</td><td>year</td><td>director</td><td>stars</td></tr>");
             while (rs.next()) {
-                String m_title = rs.getString("title");
-                String m_year = rs.getString("year");
-                out.println(String.format("<tr><td>%s</td><td>%s</td></tr>", m_title, m_year));
+
+                String movieTitle =  rs.getString("title");
+                int movieYear= rs.getInt("year");
+                String movieDir= rs.getString("director");
+                String movieGenres = rs.getString("genre");
+                String movieStars =  rs.getString("star");
+                float movieRating =  rs.getFloat("rating");
+                String starIds  = rs.getString("starId");
+                String movieId  = rs.getString("id");
+
+
+                // Create a JsonObject based on the data we retrieve from rs
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("star_ids", starIds);
+                jsonObject.addProperty("movie_title", movieTitle);
+                jsonObject.addProperty("movie_year", movieYear);
+                jsonObject.addProperty("movie_dir", movieDir);
+                jsonObject.addProperty("movie_genres", movieGenres);
+                jsonObject.addProperty("movie_stars", movieStars);
+                jsonObject.addProperty("movie_rating", movieRating);
+                jsonObject.addProperty("movie_id", movieId);
+
+                jsonArray.add(jsonObject);
+
+//                String m_title = rs.getString("title");
+//                String m_year = rs.getString("year");
+//                String m_dir = rs.getString("director");
+//                String m_stars = rs.getString("star");
+//                out.println(String.format("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>", m_title, m_year, m_dir, m_stars));
             }
-            out.println("</table>");
+            //out.println("</table>");
 
 
             // Close all structures
             rs.close();
             statement.close();
             dbCon.close();
+            out.write(jsonArray.toString());
+            // Set response status to 200 (OK)
+            response.setStatus(200);
 
 
 
@@ -131,10 +173,16 @@ public class FormServlet extends HttpServlet {
              *   tail -100 catalina.out
              * This can help you debug your program after deploying it on AWS.
              */
-            request.getServletContext().log("Error: ", e);
+            //request.getServletContext().log("Error: ", e);
 
             // Output Error Massage to html
-            out.println(String.format("<html><head><title>MovieDBExample: Error</title></head>\n<body><p>SQL error in doGet: %s</p></body></html>", e.getMessage()));
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("errorMessage", e.getMessage());
+            out.write(jsonObject.toString());
+
+            response.setStatus(500);
+
+            //out.println(String.format("<html><head><title>MovieDBExample: Error</title></head>\n<body><p>SQL error in doGet: %s</p></body></html>", e.getMessage()));
             return;
         }
         out.close();
