@@ -21,8 +21,8 @@ import java.sql.Statement;
  */
 
 // Declaring a WebServlet called FormServlet, which maps to url "/form"
-@WebServlet(name = "FormServlet", urlPatterns = "/api/movielist")
-public class FormServlet extends HttpServlet {
+@WebServlet(name = "SearchServlet", urlPatterns = "/api/movielist")
+public class SearchServlet extends HttpServlet {
 
     // Create a dataSource which registered in web.xml
     private DataSource dataSource;
@@ -70,11 +70,12 @@ public class FormServlet extends HttpServlet {
 
             // Generate a SQL query (this one is with all of the search variables);
             String query = String.format("SELECT m.id, m.title, m.year, m.director,\n" +
-                    "GROUP_CONCAT(DISTINCT g.name ORDER BY g.name SEPARATOR ', ') AS genre, \n"+
-                    "GROUP_CONCAT(DISTINCT s.name ORDER BY s.name SEPARATOR ', ') AS star, \n"+
-            "r.rating,\n"+
-                    "GROUP_CONCAT(DISTINCT s.id ORDER BY s.name SEPARATOR ',') AS starId \n"+
-            "FROM movies m\n"+
+                    "SUBSTRING_INDEX(GROUP_CONCAT(DISTINCT g.name ORDER BY g.name SEPARATOR ', '), ',', 3) AS genre,\n" +
+                    "SUBSTRING_INDEX(GROUP_CONCAT(DISTINCT s.name ORDER BY s.name SEPARATOR ', '), ',', 3) AS star,\n" +
+                    "r.rating, \n" +
+                    "SUBSTRING_INDEX(GROUP_CONCAT(DISTINCT s.id ORDER BY s.name SEPARATOR ','), ',', 3) AS starId, \n"  +
+                    "SUBSTRING_INDEX(GROUP_CONCAT(DISTINCT g.id ORDER BY g.name SEPARATOR ','), ',', 3) AS genreId\n" +
+                    "FROM movies m\n"+
             "JOIN genres_in_movies gm ON m.id = gm.movieId\n"+
             "JOIN genres g ON gm.genreId = g.id\n"+
             "JOIN stars_in_movies sm ON m.id = sm.movieId\n"+
@@ -86,7 +87,6 @@ public class FormServlet extends HttpServlet {
             query += String.format("AND (m.year = '%1$s' or '%1$s' = '')", year);
             query += "GROUP BY m.id\n" +
                     "ORDER BY r.rating DESC;";
-            //System.out.println(query);
 
 //            String query = String.format("SELECT m.title, m.year, m.director\n" +
 //                    "FROM movies m\n" +
