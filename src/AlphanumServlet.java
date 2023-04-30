@@ -21,8 +21,8 @@ import java.sql.Statement;
  */
 
 // Declaring a WebServlet called FormServlet, which maps to url "/form"
-@WebServlet(name = "SearchServlet", urlPatterns = "/api/search")
-public class SearchServlet extends HttpServlet {
+@WebServlet(name = "AlphanumServlet", urlPatterns = "/api/browseAlpha")
+public class AlphanumServlet extends HttpServlet {
 
     // Create a dataSource which registered in web.xml
     private DataSource dataSource;
@@ -60,11 +60,7 @@ public class SearchServlet extends HttpServlet {
             Statement statement = dbCon.createStatement();
 
             // Retrieve parameter "name" from the http request, which refers to the value of <input name="name"> in movielist.html
-            String title = "%" +request.getParameter("title")+"%";
-
-            String director = "%"+request.getParameter("director")+"%";
-            String star = "%"+request.getParameter("star")+"%";
-            String year = request.getParameter("year");
+            String alphaNum = request.getParameter("first")+"%";
             String results = request.getParameter("results");
             String offset = request.getParameter("offset");
             String order = request.getParameter("order");
@@ -77,41 +73,22 @@ public class SearchServlet extends HttpServlet {
             // Generate a SQL query (this one is with all of the search variables);
             String query = String.format("SELECT m.id, m.title, m.year, m.director,\n" +
                     "SUBSTRING_INDEX(GROUP_CONCAT(DISTINCT g.name ORDER BY g.name SEPARATOR ', '), ',', 3) AS genre,\n" +
-                    "SUBSTRING_INDEX(GROUP_CONCAT(DISTINCT s.name ORDER BY s.name SEPARATOR ', '), ',', 3) AS star,\n" +
+                    "SUBSTRING_INDEX(GROUP_CONCAT(DISTINCT g.id ORDER BY g.name SEPARATOR ','), ',', 3) AS genreId,\n"+
+                    "SUBSTRING_INDEX(GROUP_CONCAT(s.name ORDER BY s.name SEPARATOR ', '), ',', 3) AS star,\n" +
                     "r.rating, \n" +
-                    "SUBSTRING_INDEX(GROUP_CONCAT(DISTINCT s.id ORDER BY s.name SEPARATOR ','), ',', 3) AS starId, \n"  +
-                    "SUBSTRING_INDEX(GROUP_CONCAT(DISTINCT g.id ORDER BY g.name SEPARATOR ','), ',', 3) AS genreId\n" +
-                    "FROM movies m\n"+
-            "JOIN genres_in_movies gm ON m.id = gm.movieId\n"+
-            "JOIN genres g ON gm.genreId = g.id\n"+
-            "JOIN stars_in_movies sm ON m.id = sm.movieId\n"+
-            "JOIN stars s ON sm.starId = s.id\n"+
-            "JOIN ratings r ON m.id = r.movieId\n"+
-                    "WHERE (m.title LIKE '%1$s' or '%1$s' = '')\n", title);
-            query += String.format("AND (m.director LIKE '%1$s' or '%1$s' = '')\n", director);
-            query += String.format("AND (s.name LIKE '%1$s' or '%1$s' = '')\n", star);
-            query += String.format("AND (m.year = '%1$s' or '%1$s' = '')", year);
-            query += "GROUP BY m.id\n" + String.format("ORDER BY '%1$s'\n", order);
-            query += String.format("LIMIT %1$s\n", results);
-            query += String.format("OFFSET %1$s;", offset);
-
-//            String query = String.format("SELECT m.title, m.year, m.director\n" +
-//                    "FROM movies m\n" +
-//                    "INNER JOIN stars_in_movies sim ON m.id = sim.movieId\n" +
-//                   "INNER JOIN stars s ON s.id = sim.starId\n" +
-//                    "WHERE (m.title LIKE '%%'or m.title is null)\n"+
-//            "AND (m.director LIKE '%%' or m.director is null)\n"+
-//            "AND (s.name LIKE '%s' or s.name is null)\n"+
-//            "AND (m.year = 2004 or m.year is null);", name);
-
-//            String query = "SELECT m.title, m.year, m.director\n" +
-//                    "FROM movies m\n" +
-//                    "INNER JOIN stars_in_movies sim ON m.id = sim.movieId\n" +
-//                    "INNER JOIN stars s ON s.id = sim.starId\n" +
-//                    "WHERE (m.title LIKE '%Terminal%'or m.title is null)\n" +
-//                    "AND (m.director LIKE '%%' or m.director is null)\n" +
-//                    "AND (s.name LIKE '%Tom Hanks%' or s.name is null)\n" +
-//                    "AND (m.year = 2004 or m.year is null);";
+                    "SUBSTRING_INDEX(GROUP_CONCAT(s.id ORDER BY s.name SEPARATOR ','), ',', 3) AS starId\n" +
+                    "FROM movies m\n" +
+                    "JOIN genres_in_movies gm ON m.id = gm.movieId\n" +
+                    "JOIN genres g ON gm.genreId = g.id\n" +
+                    "JOIN stars_in_movies sm ON m.id = sm.movieId\n" +
+                    "JOIN stars s ON sm.starId = s.id\n" +
+                    "JOIN ratings r ON m.id = r.movieId\n" +
+                    "WHERE (m.title Like '%1$s')" +
+                    "GROUP BY m.id\n", alphaNum) +
+                    String.format("ORDER BY %1$s\n", order) +
+                    String.format("LIMIT %1$s\n", results) +
+                    String.format("OFFSET %1$s;", offset);
+            //out.write(query);
 
 
             // Log to localhost log

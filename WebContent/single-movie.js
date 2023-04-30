@@ -66,17 +66,17 @@ function handleResult(resultData) {
     "    <!-- Create a table header -->\n" +
     "        <thead>\n" +
     "        <tr>\n" +
-    "            <th>;laksj;fljs;lf</th>\n" +
-    "            <th>asfjsa;lkf</th>\n" +
-    "            <th>Hatating</th>\n" +
+    "            <th>Director</th>\n" +
+    "            <th>Genres</th>\n" +
+    "            <th>Rating</th>\n" +
     "        </tr>\n" +
     "        </thead>"+
         "<tr> <th>"+dir+" </th>" +
     " <th> "
-    // for (let i = 0; i < genres.length; i++) {
-    //     rowHTML += '<a href="movielist.html?genre=' + genresIDs[i] + '">' + genres[i] + "," +'</a>' ;
-    // }
-    //
+    for (let i = 0; i < genres.length; i++) {
+        rowHTML += '<a href="movielist.html?genre=' + genresIDs[i] + '">' + genres[i] + "," +'</a>' ;
+    }
+
      rowHTML += "</th>" +
         " <th>"+rating+" </th>" +
         "</tr>" +
