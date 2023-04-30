@@ -16,6 +16,12 @@
  * @param target String
  * @returns {*}
  */
+let resultsperpage = 25;
+
+function changeResultsPerPage(){
+    resultsperpage = document.getElementById("results").value;
+    console.log(resultsperpage);
+}
 function getParameterByName(target) {
     // Get request URL
     let url = window.location.href;
@@ -43,8 +49,13 @@ function handleStarResult(resultData) {
     // Find the empty table body by id "star_table_body"
     let starTableBodyElement = jQuery("#star_table_body");
 
+    let currentpage = 0;
+    let total = resultData.length;
+    let numpages = total/resultsperpage;
+
+
     // Iterate through resultData, no more than 10 entries
-    for (let i = 0; i < Math.min(20, resultData.length); i++) {
+    for (let i = currentpage*resultsperpage; i < resultsperpage; i++) {
 
         // Concatenate the html tags with resultData jsonObject
         let rowHTML = "";
@@ -69,6 +80,8 @@ function handleStarResult(resultData) {
         }
         rowHTML +=  "</td>";
         rowHTML += "<td>" + resultData[i]["movie_rating"] + "</td>";
+        rowHTML += "<td><a href=\"items?newItem="+resultData[i]["movie_title"]+"\">Add</a>\n</td>";
+
 
         rowHTML += "</tr>";
 
@@ -95,7 +108,7 @@ if (movieGenre != null){
     jQuery.ajax({
         dataType: "json", // Setting return data type
         method: "GET", // Setting request method
-        url: "api/movielistgenre?genre" + movieGenre,
+        url: "api/browse?genre=" + movieGenre,
         success: (resultData) => handleStarResult(resultData) // Setting callback function to handle data returned successfully by the StarsServlet
     });
 }

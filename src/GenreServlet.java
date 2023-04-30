@@ -21,7 +21,7 @@ import java.sql.Statement;
  */
 
 // Declaring a WebServlet called FormServlet, which maps to url "/form"
-@WebServlet(name = "GenreServlet", urlPatterns = "/api/movielistgenre")
+@WebServlet(name = "GenreServlet", urlPatterns = "/api/browse")
 public class GenreServlet extends HttpServlet {
 
     // Create a dataSource which registered in web.xml

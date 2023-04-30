@@ -20,21 +20,10 @@
     <title>Movie List</title>
 </head>
 <style>
-
-
-    table {
-    }
-
     td {
         text-align: left;
         padding: 8px;
-
     }
-
-    th{
-
-    }
-
     tr:nth-child(even) {
         background-color: #c7dbff;
     }
@@ -42,7 +31,6 @@
 
         background-color: #fef4ce;
     }
-
     tr:nth-child(even):hover {
         background-color: rgb(217, 255, 217);
     }
@@ -59,6 +47,8 @@
 <!-- Id "star_table" is useful for jQuery to find the html element with id, class here is mapping to Bootstrap defined class CSS -->
 <body>
 
+
+
 <table id=star_table class="table table-striped">
     <!-- Create a table header -->
         <thead>
@@ -69,6 +59,7 @@
             <th>Genres</th>
             <th>Stars</th>
             <th>Rating</th>
+            <th>Cart</th>
 
         </tr>
         </thead>
@@ -77,6 +68,22 @@
     <!-- Again, id "star_table_body" is useful for jQuery to find this html element -->
     <tbody id=star_table_body></tbody>
 </table>
+Results Per Page
+<select id="results">
+    <option value="10">
+        10
+    </option>
+    <option value="25">
+        25
+    </option>
+    <option value="50">
+        50
+    </option>
+    <option value="100">
+        100
+    </option>
+</select>
+<button onclick="changeResultsPerPage()">Submit</button>
 <!-- Load jQuery and Bootstrap JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
