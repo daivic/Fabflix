@@ -60,7 +60,7 @@ public class GenreServlet extends HttpServlet {
             Statement statement = dbCon.createStatement();
 
             // Retrieve parameter "name" from the http request, which refers to the value of <input name="name"> in movielist.html
-            String title = request.getParameter("genre");
+            String genre = request.getParameter("genre");
 
             //System.out.println(2004);
 
@@ -78,9 +78,9 @@ public class GenreServlet extends HttpServlet {
                             "JOIN stars_in_movies sm ON m.id = sm.movieId\n" +
                             "JOIN stars s ON sm.starId = s.id\n" +
                             "JOIN ratings r ON m.id = r.movieId\n" +
-                            "WHERE g.id = 9\n" +
+                            "WHERE g.id = %1$s\n" +
                             "GROUP BY m.id\n" +
-                            "ORDER BY r.rating DESC;");
+                            "ORDER BY r.rating DESC;", genre);
             //System.out.println(query);
 
 
