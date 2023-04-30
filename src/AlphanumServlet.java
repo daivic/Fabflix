@@ -113,6 +113,7 @@ public class AlphanumServlet extends HttpServlet {
                 float movieRating =  rs.getFloat("rating");
                 String starIds  = rs.getString("starId");
                 String movieId  = rs.getString("id");
+                String genreIds = rs.getString("genreId");
 
 
                 // Create a JsonObject based on the data we retrieve from rs
@@ -125,6 +126,7 @@ public class AlphanumServlet extends HttpServlet {
                 jsonObject.addProperty("movie_stars", movieStars);
                 jsonObject.addProperty("movie_rating", movieRating);
                 jsonObject.addProperty("movie_id", movieId);
+                jsonObject.addProperty("genre_ids", genreIds);
 
                 jsonArray.add(jsonObject);
 

@@ -66,7 +66,17 @@ function handleStarResult(resultData) {
             "</td>";
         rowHTML += "<td>" + resultData[i]["movie_year"] + "</td>";
         rowHTML += "<td>" + resultData[i]["movie_dir"] + "</td>";
-        rowHTML += "<td>" + resultData[i]["movie_genres"] + "</td>";
+
+        rowHTML += "<td>";
+
+        const genres = resultData[i]["movie_genres"].split(",");
+        const genreIDs = resultData[i]["genre_ids"].split(",");
+        for (let i = 0; i < genres.length; i++) {
+            rowHTML += '<a href="movielist.html?genre=' + genreIDs[i] + '">' + genres[i] + "," +'</a>' ;
+        }
+        //rowHTML += "<td>" + resultData[i]["movie_genres"] + "</td>";
+        rowHTML +=  "</td>";
+
         rowHTML += "<td>";
 
         const stars = resultData[i]["movie_stars"].split(",");

@@ -83,7 +83,8 @@ public class GenreServlet extends HttpServlet {
                             "JOIN stars_in_movies sm ON m.id = sm.movieId\n" +
                             "JOIN stars s ON sm.starId = s.id\n" +
                             "JOIN ratings r ON m.id = r.movieId\n" +
-                            "WHERE g.id = %1$s\n" +
+                            "WHERE m.id IN ( \n" +
+                            "SELECT movieId FROM genres_in_movies WHERE genreId = 9 )\n" +
                             "GROUP BY m.id\n", genre) +
                             String.format("ORDER BY %1$s\n", order) +
                             String.format("LIMIT %1$s\n", results) +
@@ -113,6 +114,7 @@ public class GenreServlet extends HttpServlet {
                 float movieRating =  rs.getFloat("rating");
                 String starIds  = rs.getString("starId");
                 String movieId  = rs.getString("id");
+                String genreIds = rs.getString("genreId");
 
 
                 // Create a JsonObject based on the data we retrieve from rs
@@ -125,6 +127,7 @@ public class GenreServlet extends HttpServlet {
                 jsonObject.addProperty("movie_stars", movieStars);
                 jsonObject.addProperty("movie_rating", movieRating);
                 jsonObject.addProperty("movie_id", movieId);
+                jsonObject.addProperty("genre_ids", genreIds);
 
                 jsonArray.add(jsonObject);
 
