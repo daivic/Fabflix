@@ -69,7 +69,7 @@
     <tbody id=star_table_body></tbody>
 </table>
 Results Per Page
-<select id="results">
+<select id="results" onchange="changeResult()">
     <option value="10">
         10
     </option>
@@ -83,7 +83,23 @@ Results Per Page
         100
     </option>
 </select>
-<button onclick="changeResultsPerPage()">Submit</button>
+<button onclick="prevPage()">Previous</button>
+<button onclick="nextPage()">Next</button>
+<select id="order" onchange="changeOrder()">
+    <option value="m.title ASC, r.rating ASC">
+        Title - Asc
+    </option>
+    <option value="m.title DESC, r.rating DESC">
+        Title - Dsc
+    </option>
+    <option value="r.rating ASC, m.title ASC">
+        Ranking - Asc
+    </option>
+    <option value="r.rating DESC, m.title DESC">
+        Ranking - Dsc
+    </option>
+</select>
+
 <!-- Load jQuery and Bootstrap JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>

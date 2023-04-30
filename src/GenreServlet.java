@@ -61,6 +61,11 @@ public class GenreServlet extends HttpServlet {
 
             // Retrieve parameter "name" from the http request, which refers to the value of <input name="name"> in movielist.html
             String genre = request.getParameter("genre");
+            String results = request.getParameter("results");
+            String offset = request.getParameter("offset");
+            String order = request.getParameter("order");
+
+
 
             //System.out.println(2004);
 
@@ -79,8 +84,10 @@ public class GenreServlet extends HttpServlet {
                             "JOIN stars s ON sm.starId = s.id\n" +
                             "JOIN ratings r ON m.id = r.movieId\n" +
                             "WHERE g.id = %1$s\n" +
-                            "GROUP BY m.id\n" +
-                            "ORDER BY r.rating DESC;", genre);
+                            "GROUP BY m.id\n", genre) +
+                            String.format("ORDER BY %1$s\n", order) +
+                            String.format("LIMIT %1$s\n", results) +
+                            String.format("OFFSET %1$s;", offset);
             //System.out.println(query);
 
 
