@@ -1,11 +1,26 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Payment Confirmed:</title>
+    <title>Fablix</title>
 </head>
-<body>
-<h2>Payment Confirmed</h2>
+<style>
+    table, th, td {
+        border:1px solid black;
+    }
+</style>
+<button onclick="window.location.href = 'search.jsp';">HOME</button>
+<button onclick="window.location.href = 'cart.html';">Cart</button>
+
+<body BGCOLOR="#FDF5E6">
+<h2>Confirmation</h2>
+<table id="item_list"></table>
+<h3>Total:</h3>
+<h3 id="total_cost"></h3>
+
+<script src='https://code.jquery.com/jquery-3.1.0.min.js'></script>
+<script src="confirmation.js"></script>
 
 </body>
 </html>
