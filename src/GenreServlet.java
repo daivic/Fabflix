@@ -84,7 +84,7 @@ public class GenreServlet extends HttpServlet {
                             "JOIN stars s ON sm.starId = s.id\n" +
                             "JOIN ratings r ON m.id = r.movieId\n" +
                             "WHERE m.id IN ( \n" +
-                            "SELECT movieId FROM genres_in_movies WHERE genreId = 9 )\n" +
+                            "SELECT movieId FROM genres_in_movies WHERE genreId = '%1$s' )\n" +
                             "GROUP BY m.id\n", genre) +
                             String.format("ORDER BY %1$s\n", order) +
                             String.format("LIMIT %1$s\n", results) +
