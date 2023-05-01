@@ -8,7 +8,8 @@
 <head>
     <title>Fabflix</title>
 </head>
-<a href="items">Cart</a>
+
+<button onclick="window.location.href = 'cart.html';">Cart</button>
 <body BGCOLOR="#FDF5E6">
 <h2>Search</h2>
 <form ACTION="movielist.html" METHOD="GET">

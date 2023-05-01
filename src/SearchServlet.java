@@ -91,7 +91,7 @@ public class SearchServlet extends HttpServlet {
             query += String.format("AND (m.director LIKE '%1$s' or '%1$s' = '')\n", director);
             query += String.format("AND (s.name LIKE '%1$s' or '%1$s' = '')\n", star);
             query += String.format("AND (m.year = '%1$s' or '%1$s' = '')", year);
-            query += "GROUP BY m.id\n" + String.format("ORDER BY '%1$s'\n", order);
+            query += "GROUP BY m.id\n" + String.format("ORDER BY %1$s\n", order);
             query += String.format("LIMIT %1$s\n", results);
             query += String.format("OFFSET %1$s;", offset);
 

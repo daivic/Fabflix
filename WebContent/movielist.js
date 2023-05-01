@@ -16,10 +16,30 @@
  * @param target String
  * @returns {*}
  */
-let atLastPage = false;
-let results = document.getElementById('results').value;
 let currentPage = 0;
-let order = document.getElementById('order').value
+let atLastPage = false;
+let results = 10;
+let order = "m.title ASC, r.rating ASC";
+try {
+    results = document.getElementById('results').value;
+
+}catch (error){
+}
+try{
+    order = document.getElementById('order').value;
+
+}catch (error){
+}
+
+
+function addToCart(title){
+    $.ajax("api/index", {
+        method: "POST",
+        data: "title="+title,
+
+    });
+    alert("Successfully Added " + title);
+}
 function getParameterByName(target) {
     // Get request URL
     let url = window.location.href;
@@ -88,7 +108,7 @@ function handleStarResult(resultData) {
         }
         rowHTML +=  "</td>";
         rowHTML += "<td>" + resultData[i]["movie_rating"] + "</td>";
-        rowHTML += "<td><a href=\"items?newItem="+resultData[i]["movie_title"]+"\">Add</a>\n</td>";
+        rowHTML += "<td><button onclick='addToCart(\""+resultData[i]["movie_title"]+ "\")'> Add </button></td>";
 
 
         rowHTML += "</tr>";

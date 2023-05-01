@@ -35,7 +35,14 @@ function getParameterByName(target) {
  * Handles the data returned by the API, read the jsonObject and populate data into html elements
  * @param resultData jsonObject
  */
+function addToCart(title){
+    $.ajax("api/index", {
+        method: "POST",
+        data: "title="+title,
 
+    });
+    alert("Successfully Added " + title);
+}
 function handleResult(resultData) {
 
     console.log("handleResult: populating movie info from resultData");
@@ -44,6 +51,11 @@ function handleResult(resultData) {
     // find the empty h3 body by id "star_info"
     let movieInfoElement = jQuery("#movie_info");
     let addmovie = jQuery("#add_info")
+    let addbtn = jQuery("#add_btn");
+
+    addbtn.append("<button onclick='addToCart(\""+resultData[0]["movie_title"]+ "\")'> Add </button>");
+
+
     let dir = resultData[0]["movie_director"];
     //let genres = resultData[0]["movie_genres"];
     let rating = resultData[0]["movie_rating"];

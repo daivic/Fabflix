@@ -1,0 +1,39 @@
+<!-- This page will be seen if you logged in -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fablix</title>
+</head>
+<style>
+    table, th, td {
+        border:1px solid black;
+    }
+</style>
+<body>
+<button onclick="window.location.href = 'search.jsp';">HOME</button>
+<h1>Shopping Cart</h1>
+
+
+<form ACTION="#" id="cart" METHOD="post">
+
+</form>
+<table >
+    <thead>
+        <th>Movie</th>
+        <th>Amount</th>
+        <th>Price</th>
+    </thead>
+    <tbody id="item_list">
+
+    </tbody>
+</table>
+<h3>Total Cost:</h3>
+<h3 id="total_cost"></h3>
+<div id="checkout"></div>
+
+<!-- include your own JS file -->
+<script src='https://code.jquery.com/jquery-3.1.0.min.js'></script>
+<script type='text/javascript' src='cart.js'></script>
+</body>
+</html>
