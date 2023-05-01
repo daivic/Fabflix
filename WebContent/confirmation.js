@@ -5,9 +5,12 @@ function handleSessionData(resultDataString) {
     clearCartArray(resultDataJson["previousMovies"]);
 
 }
+
+
 function clearCartArray(resultArray){
     for (let i = 0; i < resultArray.length; i++) {
         const values = resultArray[i].split("%$%");
+
         $.ajax("api/index", {
             method: "POST",
             data: {

@@ -43,7 +43,7 @@
     First Character:<select name="first">
 
     <%
-        String alphnum = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        String alphnum = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789*";
         for(int i=0; i<=alphnum.length()-1; i++){%>
             <option value= <%=alphnum.charAt(i)%>> <%=alphnum.charAt(i) %> </option>
         <%} %>

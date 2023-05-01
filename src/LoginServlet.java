@@ -18,7 +18,7 @@ public class LoginServlet extends HttpServlet {
         /  in the real project, you should talk to the database to verify username/password
         */
         JsonObject responseJsonObject = new JsonObject();
-        if (username.equals("anteater") && password.equals("123456")) {
+        if (username.equals("a@email.com") && password.equals("a2")) {
             // Login success:
 
             // set this user into the session
@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet {
             // Log to localhost log
             request.getServletContext().log("Login failed");
             // sample error messages. in practice, it is not a good idea to tell user which one is incorrect/not exist.
-            if (!username.equals("anteater")) {
+            if (!username.equals("a@email.com")) {
                 responseJsonObject.addProperty("message", "user " + username + " doesn't exist");
             } else {
                 responseJsonObject.addProperty("message", "incorrect password");

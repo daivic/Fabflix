@@ -17,6 +17,13 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.sql.PreparedStatement;
+
+
 
 /**
  * A servlet that takes input from a html <form> and talks to MySQL moviedbexample,
@@ -74,6 +81,28 @@ public class CheckoutServlet extends HttpServlet {
             rs.next();
             String isValid = rs.getString("Count(*)");
             //JsonArray jsonArray = new JsonArray();
+            System.out.println(isValid);
+            //this is used to insert sale into database
+            if (isValid.equals("1")) {
+                java.util.Date today = new java.util.Date();
+                DateFormat dateformatting = new SimpleDateFormat("yyyy-MM-dd");
+                String date = dateformatting.format(today).toString();
+
+                String insertQuery = String.format("INSERT INTO sales (customerId, movieId, saleDate)\n" +
+                        "SELECT c.id, m.id, '%1$s'\n", date);
+                insertQuery += String.format("FROM customers c, movies m\n" +
+                        "WHERE c.ccID = '%1$s'", CCNum);
+                insertQuery += String.format(" AND m.title = '%1$s';", "The Terminal");
+                System.out.println(insertQuery);
+                PreparedStatement statement2 = dbCon.prepareStatement(insertQuery);
+                int test = statement2.executeUpdate();
+
+
+
+
+            }
+
+
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("isValid", isValid);
 
@@ -84,7 +113,6 @@ public class CheckoutServlet extends HttpServlet {
             out.write(jsonObject.toString());
             // Set response status to 200 (OK)
             response.setStatus(200);
-
 
 
         } catch (Exception e) {
@@ -108,12 +136,8 @@ public class CheckoutServlet extends HttpServlet {
 
             //out.println(String.format("<html><head><title>MovieDBExample: Error</title></head>\n<body><p>SQL error in doGet: %s</p></body></html>", e.getMessage()));
             return;
-        }
-        finally {
+        } finally {
             out.close();
         }
     }
-
 }
-    // Use http GET
-
