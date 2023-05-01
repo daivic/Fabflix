@@ -31,8 +31,8 @@ import java.sql.PreparedStatement;
  */
 
 // Declaring a WebServlet called FormServlet, which maps to url "/form"
-@WebServlet(name = "CheckoutServlet", urlPatterns = "/api/checkout")
-public class CheckoutServlet extends HttpServlet {
+@WebServlet(name = "SaleServlet", urlPatterns = "/api/sale")
+public class SaleServlet extends HttpServlet {
 
     // Create a dataSource which registered in web.xml
     private DataSource dataSource;
@@ -50,7 +50,7 @@ public class CheckoutServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         PrintWriter out = response.getWriter();
-        System.out.println("Validating");
+        System.out.println("posting");
         try {
 
             // Create a new connection to database
@@ -60,57 +60,36 @@ public class CheckoutServlet extends HttpServlet {
             Statement statement = dbCon.createStatement();
 
             // Retrieve parameter "name" from the http request, which refers to the value of <input name="name"> in movielist.html
-            String firstName = request.getParameter("firstName");
-            String lastName = request.getParameter("lastName");
             String CCNum = request.getParameter("CCNum");
-            String expDate = request.getParameter("expDate");
-
+            String movieName = request.getParameter("movieName");
+            System.out.println(CCNum + movieName);
             // get the previous items in a ArrayList
-            String query = String.format("SELECT COUNT(*) FROM creditcards\n" +
-                    "WHERE firstName = '%1$s' \n", firstName);
-            query += String.format("AND lastName = '%1$s' \n", lastName);
-            query += String.format("AND id = '%1$s' \n", CCNum);
-            query += String.format("AND expiration = '%1$s';", expDate);
-
 
             // Log to localhost log
-            request.getServletContext().log("query：" + query);
 
             // Perform the query
-            ResultSet rs = statement.executeQuery(query);
-            rs.next();
-            String isValid = rs.getString("Count(*)");
+
             //JsonArray jsonArray = new JsonArray();
-            //System.out.println(isValid);
             //this is used to insert sale into database
-            if (isValid.equals("2")) {
-                java.util.Date today = new java.util.Date();
-                DateFormat dateformatting = new SimpleDateFormat("yyyy-MM-dd");
-                String date = dateformatting.format(today).toString();
+        java.util.Date today = new java.util.Date();
+        DateFormat dateFormatting = new SimpleDateFormat("yyyy-MM-dd");
+        String date = dateFormatting.format(today).toString();
 
-                String insertQuery = String.format("INSERT INTO sales (customerId, movieId, saleDate)\n" +
-                        "SELECT c.id, m.id, '%1$s'\n", date);
-                insertQuery += String.format("FROM customers c, movies m\n" +
-                        "WHERE c.ccID = '%1$s'", CCNum);
-                insertQuery += String.format(" AND m.title = '%1$s';", "The Terminal");
-                System.out.println(insertQuery);
-                PreparedStatement statement2 = dbCon.prepareStatement(insertQuery);
-                int test = statement2.executeUpdate();
+        String insertQuery = String.format("INSERT INTO sales (customerId, movieId, saleDate)\n" +
+                "SELECT c.id, m.id, '%1$s'\n", date);
+        insertQuery += String.format("FROM customers c, movies m\n" +
+                "WHERE c.ccID = '%1$s'", CCNum);
+        insertQuery += String.format(" AND m.title = '%1$s';", movieName);
+        System.out.println(insertQuery);
+        PreparedStatement statement2 = dbCon.prepareStatement(insertQuery);
+        int test = statement2.executeUpdate();
 
+        JsonObject jsonObject = new JsonObject();
 
-
-
-            }
-
-
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("isValid", isValid);
-
-
-            rs.close();
-            statement.close();
-            dbCon.close();
-            out.write(jsonObject.toString());
+        jsonObject.addProperty("result", test);
+        statement2.close();
+        dbCon.close();
+        out.write(jsonObject.toString());
             // Set response status to 200 (OK)
             response.setStatus(200);
 

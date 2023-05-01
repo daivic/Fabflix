@@ -26,7 +26,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 <script>
-    const form = document.querySelector('form')
+    const form = document.querySelector('form');
     form.addEventListener('submit', async event => {
         event.preventDefault();
         validateCC();
@@ -51,7 +51,7 @@
         let expDate = document.getElementById("expDate").value;
         jQuery.ajax({
             dataType: "json",  // Setting return data type
-            method: "Get",// Setting request method
+            method: "Post",// Setting request method
             url: "api/checkout?firstName=" + firstName+"&lastName="+lastName+"&CCNum="+CCNum+ "&expDate="+expDate, // Setting request url, which is mapped by StarsServlet in Stars.java
             success: function(data) {
                 // Call this function on success
@@ -60,6 +60,14 @@
                 if (data["isValid"] === "1"){
                     error.textContent = "";
                     console.log('passed!')
+                    //for loop to iterate through all movie titles in cart
+                $.ajax("api/index", {
+                    method: "GET",
+                    success: function(results) {
+                        loopCart(results, CCNum);
+                    }
+                        //for loop to iterate through all movie titles in cart
+                });
                     window.location.href= "confirmation.html";
 
                     //send to confirmation page
@@ -73,6 +81,28 @@
             },// Setting callback function to handle data returned successfully by the SingleStarServlet
         });
 
+    }
+    function loopCart(resultDataString, CCNum) {
+        let resultDataJson = JSON.parse(resultDataString);
+        insertSales(resultDataJson["previousMovies"], CCNum);
+
+
+    }
+
+    function insertSales(resultArray, CCNum) {
+        let item_list = $("#item_list");
+        let total_cost = $("#total_cost");
+        for (let i = 0; i < resultArray.length; i++) {
+            const values = resultArray[i].split("%$%");
+            for (let k = 0; k < parseInt(values[1]); k++) {
+                jQuery.ajax({
+                    dataType: "json",  // Setting return data type
+                    method: "Post",// Setting request method
+                    url: "api/sale?CCNum=" + CCNum + "&movieName=" + values[0], // Setting request url, which is mapped by StarsServlet in Stars.java
+                });
+
+            }
+        }
     }
     // function handleResult(resultData){
     //     if(resultData == 1){
