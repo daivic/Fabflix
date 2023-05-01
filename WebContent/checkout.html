@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Fabflix</title>
+</head>
+<a href="items">CHECKOUT PAGE</a>
+<body BGCOLOR="#FDF5E6">
+
+<h2>Search</h2>
+<form>
+    First Name: <input TYPE="TEXT" id="firstName" required><br>
+    Last Name: <input TYPE="TEXT" id="lastName" required> <br>
+    Credit Cart Number: <input TYPE="TEXT" id="CCNum" required><br>
+    Expiration Date: <input TYPE="TEXT" id="expDate" required><br>
+
+    <input TYPE="SUBMIT" VALUE="PURCHASE">
+    <p id="error" style="color:red"></p>
+
+</form>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script>
+    const form = document.querySelector('form')
+    form.addEventListener('submit', async event => {
+        event.preventDefault();
+        validateCC();
+        // console.log(resultData);
+        // //const isValid = resultData["isValid"];
+        // const isValid = "1";
+        // console.log(isValid);
+        // //const field = document.getElementById("fname").value
+        // if (isValid === "1"){
+        //     console.log('passed!')
+        // }
+        // else{
+        //     const error = document.getElementById("error")
+        //     error.textContent = "invalid login"
+        //
+        // }
+    })
+    function validateCC() {
+        let firstName = document.getElementById("firstName").value;
+        let lastName = document.getElementById("lastName").value;
+        let CCNum = document.getElementById("CCNum").value;
+        let expDate = document.getElementById("expDate").value;
+        jQuery.ajax({
+            dataType: "json",  // Setting return data type
+            method: "Get",// Setting request method
+            url: "api/checkout?firstName=" + firstName+"&lastName="+lastName+"&CCNum="+CCNum+ "&expDate="+expDate, // Setting request url, which is mapped by StarsServlet in Stars.java
+            success: function(data) {
+                // Call this function on success
+                const error = document.getElementById("error")
+
+                if (data["isValid"] === "1"){
+                    error.textContent = "";
+                    console.log('passed!')
+                    window.location.href= "confirmation.html";
+
+                    //send to confirmation page
+                }
+                else{
+                    error.textContent = "Payment Information Does Not Match. Please Try Again."
+
+                }
+                //console.log(data["isValid"]);
+                //return data["isValid"];
+            },// Setting callback function to handle data returned successfully by the SingleStarServlet
+        });
+
+    }
+    // function handleResult(resultData){
+    //     if(resultData == 1){
+    //         //go to confirmation page
+    //     }
+    //     else{
+    //         alert("Incorrect Information. Please try again");
+    //         return false;
+    //         //print out that cc info was wrong
+    //
+    //     }
+    //}
+</script>
+
+
+</body>
+</html>
