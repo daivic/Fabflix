@@ -1,3 +1,4 @@
 .idea
 *.iml
 target/
+WebContent/META-INF/context.xml
