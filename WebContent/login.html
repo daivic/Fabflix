@@ -4,23 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Login to Fablix</title>
-    <link rel="stylesheet" href="register.css">
+    <link rel="stylesheet" href="style.css">
 
 </head>
 
-
+<div class="topnav">
+    <a>Fablix Login</a>
+</div>
 <body>
+
 <!-- Set the method to POST to avoid showing the username/password in the URL
      The default action is disabled to allow your own implementation. -->
-<form id="login_form" method="post" action="#">
-    <label><b>Username</b></label>
+<form style="margin: 10px 10px 10px 10px; text-align: center;" id="login_form" method="post" action="#">
+    <label style="text-align: left">Username</label>
+    <br>
     <label>
-        <input name="username" placeholder="Enter Username" type="text">
+        <input style="margin: 10px 10px 10px 10px;" name="username" placeholder="Enter Username" type="text">
     </label>
     <br>
-    <label><b>Password</b></label>
+    <label  style="text-align: left">Password</label>
+    <br>
     <label>
-        <input name="password" placeholder="Enter Password" type="password">
+        <input style="margin: 10px 10px 10px 10px;" name="password" placeholder="Enter Password" type="password">
     </label>
     <br>
     <input type="submit" value="Login">
