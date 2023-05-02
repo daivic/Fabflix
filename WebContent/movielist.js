@@ -111,7 +111,7 @@ function handleStarResult(resultData) {
         }
         rowHTML +=  "</td>";
         rowHTML += "<td>" + resultData[i]["movie_rating"] + "</td>";
-        rowHTML += "<td><button onclick='addToCart(\""+resultData[i]["movie_title"]+ "\")'> Add </button></td>";
+        rowHTML += "<td><a onclick='addToCart(\""+resultData[0]["movie_title"]+ "\")'><i class=\"fa fa-plus\"></i></a></td>";
 
 
         rowHTML += "</tr>";
