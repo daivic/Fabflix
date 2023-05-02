@@ -53,7 +53,7 @@ public class SingleStarServlet extends HttpServlet {
             // Get a connection from dataSource
 
             // Construct a query with parameter represented by "?"
-            String query = "SELECT s.name, s.birthYear, GROUP_CONCAT(m.title ORDER BY m.title) AS movies, GROUP_CONCAT(m.id ORDER BY m.title) AS movieId " +
+            String query = "SELECT s.name, s.birthYear, GROUP_CONCAT(m.title ORDER BY m.year desc) AS movies, GROUP_CONCAT(m.id ORDER BY m.year desc) AS movieId " +
                     "FROM stars s "+
                     "INNER JOIN stars_in_movies sm ON s.id = sm.starId "+
                     "INNER JOIN movies m ON sm.movieId = m.id "+

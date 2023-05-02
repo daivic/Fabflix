@@ -17,9 +17,9 @@
  * @returns {*}
  */
 let currentPage = 0;
-let atLastPage = false;
 let results = 10;
 let order = "m.title ASC, r.rating ASC";
+let total_count = 0;
 try {
     results = document.getElementById('results').value;
 
@@ -71,9 +71,7 @@ function handleStarResult(resultData) {
     let starTableBodyElement = jQuery("#star_table_body");
     starTableBodyElement.empty();
 
-    if (resultData.length < results){
-        atLastPage = true;
-    }
+    total_count = resultData.length;
 
     // Iterate through resultData, no more than 10 entries
     for (let i = 0; i < resultData.length; i++) {
@@ -129,7 +127,7 @@ function changeOrder(){
     renderList();
 }
 function nextPage(){
-    if(!atLastPage){
+    if(!(total_count<results)){
         currentPage +=1;
         renderList();
     }
