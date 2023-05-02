@@ -83,11 +83,18 @@ public class SaleServlet extends HttpServlet {
         System.out.println(insertQuery);
         PreparedStatement statement2 = dbCon.prepareStatement(insertQuery);
         int test = statement2.executeUpdate();
+        String getQuery = "SELECT id From sales\n" +
+                "ORDER BY id DESC\n" +
+                "Limit 1;";
+        ResultSet rs = statement.executeQuery(getQuery);
+        rs.next();
+        String saleID = rs.getString("id");
 
         JsonObject jsonObject = new JsonObject();
 
-        jsonObject.addProperty("result", test);
+        jsonObject.addProperty("saleID", saleID);
         statement2.close();
+        statement.close();
         dbCon.close();
         out.write(jsonObject.toString());
             // Set response status to 200 (OK)

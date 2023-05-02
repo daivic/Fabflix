@@ -73,7 +73,7 @@
                     }
                         //for loop to iterate through all movie titles in cart
                 });
-                    window.location.href= "confirmation.html";
+                    //window.location.href= "confirmation.html";
 
                     //send to confirmation page
                 }
@@ -104,6 +104,9 @@
                     dataType: "json",  // Setting return data type
                     method: "Post",// Setting request method
                     url: "api/sale?CCNum=" + CCNum + "&movieName=" + values[0], // Setting request url, which is mapped by StarsServlet in Stars.java
+                    success: function(results) {
+                        window.location.href= "confirmation.html?saleID="+results["saleID"];
+                    }
                 });
 
             }
