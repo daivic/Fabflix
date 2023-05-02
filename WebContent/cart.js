@@ -34,7 +34,7 @@ function handleCartArray(resultArray) {
         res += values[1];
         res += "<a onclick='changeAmount(\""+values[0]+"\", \"DELETE\")'><i class=\"fa fa-arrow-down\"></i></a>";
 
-        res += "<td style='text-align: right'>"+ cost +"</td>";
+        res += "<td style='text-align: right'>$"+ cost +"</td>";
         res += "<td><a style='text-align: right' onclick='changeAmount(\""+values[0]+"\", \"REMOVE\")'><i class=\"fa fa-trash\"></i></a></td></tr>";
 
 
