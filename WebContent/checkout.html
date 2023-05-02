@@ -2,18 +2,23 @@
 <html lang="en">
 <head>
     <title>Fabflix</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
-<button onclick="window.location.href = 'search.jsp';">HOME</button>
-<button onclick="window.location.href = 'cart.html';">Cart</button>
+
+<div class="topnav">
+    <a>Checkout</a>
+    <a style="float: right" onclick="window.location.href = 'cart.html';"><i class="fa fa-shopping-cart"></i></a>
+    <a style="float: right" onclick="window.location.href = 'search.jsp';"><i class="fa fa-home"></i></a>
+</div>
 
 <body BGCOLOR="#FDF5E6">
 
-<h2>Search</h2>
 <form>
-    First Name: <input TYPE="TEXT" id="firstName" required><br>
-    Last Name: <input TYPE="TEXT" id="lastName" required> <br>
-    Credit Cart Number: <input TYPE="TEXT" id="CCNum" required><br>
-    Expiration Date: <input TYPE="TEXT" id="expDate" required><br>
+    <input TYPE="TEXT" id="firstName" placeholder="First Name" required><br>
+    <input TYPE="TEXT" id="lastName" placeholder="Last Name" required> <br>
+    <input TYPE="TEXT" id="CCNum" placeholder="Credit Card" required><br>
+    <input TYPE="DATE" id="expDate" required><br>
 
     <input TYPE="SUBMIT" VALUE="PURCHASE">
     <p id="error" style="color:red"></p>

@@ -30,6 +30,14 @@ try{
 
 }catch (error){
 }
+let movieTitle = getParameterByName('title');
+let movieDir = getParameterByName('director');
+let movieStar = getParameterByName('star');
+let movieYear = getParameterByName('year');
+let movieGenre = getParameterByName('genre');
+let movieAlphaNum = getParameterByName('first');
+
+renderList();
 
 
 function addToCart(title){
@@ -55,11 +63,6 @@ function getParameterByName(target) {
     // Return the decoded parameter value
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
-
-/**
- * Handles the data returned by the API, read the jsonObject and populate data into html elements
- * @param resultData jsonObject
- */
 function handleStarResult(resultData) {
     console.log("handleStarResult: populating star table from resultData");
 
@@ -117,50 +120,31 @@ function handleStarResult(resultData) {
         starTableBodyElement.append(rowHTML);
     }
 }
-
-
-
-/**
- * Once this .js is loaded, following scripts will be executed by the browser
- */
-
-// Makes the HTTP GET request and registers on success callback function handleStarResult
-let movieTitle = getParameterByName('title');
-let movieDir = getParameterByName('director');
-let movieStar = getParameterByName('star');
-let movieYear = getParameterByName('year');
-let movieGenre = getParameterByName('genre');
-let movieAlphaNum = getParameterByName('first')
-console.log(movieAlphaNum);
 function changeResult(){
     results = document.getElementById('results').value;
-    if (movieGenre != null){
-        jQuery.ajax({
-            dataType: "json", // Setting return data type
-            method: "GET", // Setting request method
-            url: "api/browse?genre=" + movieGenre + "&results=" + results+ "&offset=" + currentPage*results + "&order=" + order ,
-            success: (resultData) => handleStarResult(resultData) // Setting callback function to handle data returned successfully by the StarsServlet
-        });
-    }
-    else if (movieAlphaNum != null){
-        jQuery.ajax({
-            dataType: "json", // Setting return data type
-            method: "GET", // Setting request method
-            url: "api/browseAlpha?first=" + movieAlphaNum + "&results=" + results+ "&offset=" + currentPage*results + "&order=" + order,
-            success: (resultData) => handleStarResult(resultData) // Setting callback function to handle data returned successfully by the StarsServlet
-        });
-    }
-    else{
-        jQuery.ajax({
-            dataType: "json", // Setting return data type
-            method: "GET", // Setting request method
-            url: "api/search?title="+ movieTitle+"&director="+movieDir+"&star="+movieStar+"&year="+movieYear + "&results=" + results + "&offset=" + currentPage*results + "&order=" + order, // Setting request url, which is mapped by StarsServlet in Stars.java
-            success: (resultData) => handleStarResult(resultData) // Setting callback function to handle data returned successfully by the StarsServlet
-        });
-    };
+    renderList()
 }
 function changeOrder(){
     order = document.getElementById('order').value
+    renderList();
+}
+function nextPage(){
+    if(!atLastPage){
+        currentPage +=1;
+        renderList();
+    }
+
+}
+function getPage(){
+    return currentPage;
+}
+function prevPage(){
+    if(currentPage>0){
+        currentPage-=1;
+        renderList();
+    }
+}
+function renderList(){
     if (movieGenre != null){
         jQuery.ajax({
             dataType: "json", // Setting return data type
@@ -178,99 +162,11 @@ function changeOrder(){
         });
     }
     else{
-        jQuery.ajax({
-            dataType: "json", // Setting return data type
-            method: "GET", // Setting request method
-            url: "api/search?title="+ movieTitle+"&director="+movieDir+"&star="+movieStar+"&year="+movieYear + "&results=" + results + "&offset=" + currentPage*results + "&order=" + order, // Setting request url, which is mapped by StarsServlet in Stars.java
-            success: (resultData) => handleStarResult(resultData) // Setting callback function to handle data returned successfully by the StarsServlet
-        });
-    };
-}
-function nextPage(){
-    if(!atLastPage){
-        currentPage +=1;
-        if (movieGenre != null){
-            jQuery.ajax({
-                dataType: "json", // Setting return data type
-                method: "GET", // Setting request method
-                url: "api/browse?genre=" + movieGenre + "&results=" + results+ "&offset=" + currentPage*results + "&order=" + order,
-                success: (resultData) => handleStarResult(resultData) // Setting callback function to handle data returned successfully by the StarsServlet
-            });
-        }
-        else if (movieAlphaNum != null){
-            jQuery.ajax({
-                dataType: "json", // Setting return data type
-                method: "GET", // Setting request method
-                url: "api/browseAlpha?first=" + movieAlphaNum + "&results=" + results+ "&offset=" + currentPage*results + "&order=" + order,
-                success: (resultData) => handleStarResult(resultData) // Setting callback function to handle data returned successfully by the StarsServlet
-            });
-        }
-        else{
-            jQuery.ajax({
-                dataType: "json", // Setting return data type
-                method: "GET", // Setting request method
-                url: "api/search?title="+ movieTitle+"&director="+movieDir+"&star="+movieStar+"&year="+movieYear + "&results=" + results + "&offset=" + currentPage*results + "&order=" + order, // Setting request url, which is mapped by StarsServlet in Stars.java
-                success: (resultData) => handleStarResult(resultData) // Setting callback function to handle data returned successfully by the StarsServlet
-            });
-        };
-    }
-
-}
-
-function prevPage(){
-    if(currentPage>0){
-        currentPage-=1;
-        if (movieGenre != null){
-            jQuery.ajax({
-                dataType: "json", // Setting return data type
-                method: "GET", // Setting request method
-                url: "api/browse?genre=" + movieGenre + "&results=" + results+ "&offset=" + currentPage*results + "&order=" + order,
-                success: (resultData) => handleStarResult(resultData) // Setting callback function to handle data returned successfully by the StarsServlet
-            });
-        }
-        else if (movieAlphaNum != null){
-            jQuery.ajax({
-                dataType: "json", // Setting return data type
-                method: "GET", // Setting request method
-                url: "api/browseAlpha?first=" + movieAlphaNum + "&results=" + results+ "&offset=" + currentPage*results + "&order=" + order,
-                success: (resultData) => handleStarResult(resultData) // Setting callback function to handle data returned successfully by the StarsServlet
-            });
-        }
-        else{
-            jQuery.ajax({
-                dataType: "json", // Setting return data type
-                method: "GET", // Setting request method
-                url: "api/search?title="+ movieTitle+"&director="+movieDir+"&star="+movieStar+"&year="+movieYear + "&results=" + results + "&offset=" + currentPage*results + "&order=" + order, // Setting request url, which is mapped by StarsServlet in Stars.java
-                success: (resultData) => handleStarResult(resultData) // Setting callback function to handle data returned successfully by the StarsServlet
-            });
-        };
-    }
-
-}
-
-
-
-if (movieGenre != null){
     jQuery.ajax({
         dataType: "json", // Setting return data type
         method: "GET", // Setting request method
-        url: "api/browse?genre=" + movieGenre + "&results=" + results+ "&offset=" + currentPage*results + "&order=" + order,
+        url: "api/search?title="+ movieTitle+"&director="+movieDir+"&star="+movieStar+"&year="+movieYear+ "&results=" + results + "&offset=" + currentPage*results  + "&order=" + order , // Setting request url, which is mapped by StarsServlet in Stars.java
         success: (resultData) => handleStarResult(resultData) // Setting callback function to handle data returned successfully by the StarsServlet
     });
+    }
 }
-else if (movieAlphaNum != null){
-    jQuery.ajax({
-        dataType: "json", // Setting return data type
-        method: "GET", // Setting request method
-        url: "api/browseAlpha?first=" + movieAlphaNum + "&results=" + results+ "&offset=" + currentPage*results + "&order=" + order,
-        success: (resultData) => handleStarResult(resultData) // Setting callback function to handle data returned successfully by the StarsServlet
-    });
-}
-else{
-jQuery.ajax({
-    dataType: "json", // Setting return data type
-    method: "GET", // Setting request method
-    url: "api/search?title="+ movieTitle+"&director="+movieDir+"&star="+movieStar+"&year="+movieYear+ "&results=" + results + "&offset=" + currentPage*results  + "&order=" + order , // Setting request url, which is mapped by StarsServlet in Stars.java
-    success: (resultData) => handleStarResult(resultData) // Setting callback function to handle data returned successfully by the StarsServlet
-});
-};

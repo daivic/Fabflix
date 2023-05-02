@@ -19,7 +19,6 @@ function handleSessionData(resultDataString) {
 function handleCartArray(resultArray) {
     console.log(resultArray);
     let item_list = $("#item_list");
-    let total_cost = $("#total_cost");
     let checkout = $("#checkout");
     // change it to html list
     let res = "";
@@ -29,13 +28,15 @@ function handleCartArray(resultArray) {
         const values = resultArray[i].split("%$%");
         let cost = parseInt(values[1]) * 5
         tot += cost;
-        res += "<tr><td>" + values[0] + "</td>";
-        res += "<td>" + values[1];
-        res += "<button onclick='changeAmount(\""+values[0]+"\")'>ADD</button>";
-        res += "<button onclick='changeAmount(\""+values[0]+"\", \"DELETE\")'>REM</button>";
-        res += "<button onclick='changeAmount(\""+values[0]+"\", \"REMOVE\")'>CLEAR</button></td>";
+        res += "<tr style='text-align: left'><td>" + values[0] + "</td>";
+        res += "<td>";
+        res += "<a onclick='changeAmount(\""+values[0]+"\")'><i class=\"fa fa-arrow-up\"></i></a>";
+        res += values[1];
+        res += "<a onclick='changeAmount(\""+values[0]+"\", \"DELETE\")'><i class=\"fa fa-arrow-down\"></i></a>";
 
-        res += "<td>"+ cost +"</td></tr>";
+        res += "<td style='text-align: right'>"+ cost +"</td>";
+        res += "<td><a style='text-align: right' onclick='changeAmount(\""+values[0]+"\", \"REMOVE\")'><i class=\"fa fa-trash\"></i></a></td></tr>";
+
 
 
     }
@@ -45,11 +46,8 @@ function handleCartArray(resultArray) {
     item_list.html("");
     item_list.append(res);
 
-    total_cost.html("");
-    total_cost.append(tot);
-
     checkout.html("");
-    checkout.append("<button onclick=\"window.location.href = 'checkout.html?p="+tot.toString()+"';\">Checkout</button>")
+    checkout.append("<button style='color: green' onclick=\"window.location.href = 'checkout.html?p="+tot.toString()+"';\">Checkout: $"+tot+"</button>")
 }
 
 $.ajax("api/index", {

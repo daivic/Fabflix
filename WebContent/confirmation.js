@@ -34,13 +34,14 @@ function handleCartArray(resultArray) {
         tot += cost;
         res += "<tr><td>" + values[0] + "</td>";
         res += "<td>" + values[1] + "</td>";
-        res += "<td>"+ cost +"</td></tr>";
+        res += "<td style='text-align: right'>"+ cost +"</td></tr>";
     }
 
     // clear the old array and show the new array in the frontend
     item_list.html("");
     item_list.append(res);
 
+    tot = "Total Cost: " + tot;
     total_cost.html("");
     total_cost.append(tot);
 

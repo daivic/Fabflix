@@ -7,23 +7,29 @@
 <html lang="en">
 <head>
     <title>Fabflix</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 
-<button onclick="window.location.href = 'cart.html';">Cart</button>
-<body BGCOLOR="#FDF5E6">
-<h2>Search</h2>
-<form ACTION="movielist.html" METHOD="GET">
-    Title: <input TYPE="TEXT" name="title"><br>
-    Director: <input TYPE="TEXT" name="director"> <br>
-    Star: <input TYPE="TEXT" name="star"><br>
-    Year: <input TYPE="TEXT" name="year"><br>
+<div class="topnav">
+    <a style="float: right" onclick="window.location.href = 'cart.html';"><i class="fa fa-shopping-cart"></i></a>
+    <a>Fabflix</a>
 
-    <input TYPE="SUBMIT" VALUE="Search">
+    <form ACTION="movielist.html" METHOD="GET">
+        <input TYPE="TEXT" name="title" placeholder="Title">
+        <input TYPE="TEXT" name="director" placeholder="Director">
+        <input TYPE="TEXT" name="star" placeholder="Star">
+        <input TYPE="TEXT" name="year" placeholder="Date">
 
-</form>
-<h2>Browse by Genre</h2>
+        <input TYPE="SUBMIT" VALUE="Search">
+
+    </form>
+</div>
+<body >
+
 <form action="movielist.html">
-    Genre:<select name="genre">
+    <select name="genre">
 
         <%
             DataSource dataSource = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/moviedb");
@@ -35,12 +41,11 @@
                 <option value= <%=result.getString("id") %>> <%=result.getString("name") %> </option>
         <%} %>
     </select>
-    <input type="submit">
+    <input type="submit" value="Browse">
 
 </form>
-<h2>Browse Alphabetically</h2>
 <form action="movielist.html">
-    First Character:<select name="first">
+    <select name="first">
 
     <%
         String alphnum = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789*";
@@ -48,7 +53,7 @@
             <option value= <%=alphnum.charAt(i)%>> <%=alphnum.charAt(i) %> </option>
         <%} %>
     </select>
-<input type="submit">
+<input type="submit" value="Browse">
 
 </form>
 

@@ -53,7 +53,7 @@ function handleResult(resultData) {
     let addmovie = jQuery("#add_info")
     let addbtn = jQuery("#add_btn");
 
-    addbtn.append("<button onclick='addToCart(\""+resultData[0]["movie_title"]+ "\")'> Add </button>");
+    addbtn.append("<a onclick='addToCart(\""+resultData[0]["movie_title"]+ "\")'><i class=\"fa fa-plus\"></i></a>");
 
 
     let dir = resultData[0]["movie_director"];

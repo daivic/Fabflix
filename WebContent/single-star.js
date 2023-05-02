@@ -53,7 +53,7 @@ function handleResult(resultData) {
     }
 
 
-    starInfoElement.append( name + "<h6><i>(" + age + ")</i></h6>");
+    starInfoElement.append( name + "(" + age + ")");
 
     console.log("handleResult: populating movie table from resultData");
     console.log(resultData[0]["star_dob"]);

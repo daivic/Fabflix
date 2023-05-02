@@ -17,38 +17,20 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
     <title>Single Star</title>
 </head>
-
-<style>
-
-
-    tr:nth-child(even) {
-        background-color: #c7dbff;
-    }
-    tr:nth-child(odd){
-
-        background-color: #fef4ce;
-    }
-
-    tr:nth-child(even):hover {
-        background-color: rgb(217, 255, 217);
-    }
-    tr:nth-child(odd):hover{
-
-        background-color: rgb(217, 255, 217);
-    }
-
-</style>
-
+<div class="topnav">
+    <a style="color: white" id="star_info"></a>
+    <a style="float: right" onclick="window.location.href = 'cart.html';"><i class="fa fa-shopping-cart"></i></a>
+    <a style="float: right" onclick="window.location.href = 'search.jsp';"><i class="fa fa-home"></i></a>
+</div>
 <body>
 
-<button onClick="window.location.href = 'cart.html';">Cart</button>
-<button onClick="window.location.href = 'search.jsp';">HOME</button>
 
 <!-- H3 body is left empty here, will be populated with the data retrieved with single-star.js -->
 <!-- single-star.js will find this html element by it's id "star_info" -->
-<h3 id="star_info"></h3>
 <table id=movie_table class="table table-striped">
     <thead>
     <tr>

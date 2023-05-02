@@ -18,38 +18,54 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <title>Movie List</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
 </head>
-<style>
-    td {
-        text-align: left;
-        padding: 8px;
-    }
-    tr:nth-child(even) {
-        background-color: #c7dbff;
-    }
-    tr:nth-child(odd){
-
-        background-color: #fef4ce;
-    }
-    tr:nth-child(even):hover {
-        background-color: rgb(217, 255, 217);
-    }
-    tr:nth-child(odd):hover{
-
-        background-color: rgb(217, 255, 217);
-    }
-
-</style>
-
-
-<button onclick="window.location.href = 'cart.html';">Cart</button>
-<button onclick="window.location.href = 'search.jsp';">HOME</button>
 <body>
 
-<body>
+<div class="topnav">
+
+    <a style="float: right" onclick="window.location.href = 'cart.html';"><i class="fa fa-shopping-cart"></i></a>
+    <a style="float: right" onclick="window.location.href = 'search.jsp';"><i class="fa fa-home"></i></a>
+
+    <div>
+        <a onclick="prevPage()"><i class="fa fa-arrow-left"></i></a>
+        <select id="order" onchange="changeOrder()">
+            <option value="m.title ASC, r.rating ASC">
+                Title - Asc
+            </option>
+            <option value="m.title DESC, r.rating DESC">
+                Title - Dsc
+            </option>
+            <option value="r.rating ASC, m.title ASC">
+                Ranking - Asc
+            </option>
+            <option value="r.rating DESC, m.title DESC">
+                Ranking - Dsc
+            </option>
+        </select>
+        <select id="results" onchange="changeResult()">
+            <option value="10">
+                10
+            </option>
+            <option value="25">
+                25
+            </option>
+            <option value="50">
+                50
+            </option>
+            <option value="100">
+                100
+            </option>
+        </select>
+        <a onclick="nextPage()"><i class="fa fa-arrow-right"></i></a>
+
+    </div>
+</div>
 
 
-<!-- Id "star_blob" is useful for jQuery to find the html element with id, class here is mapping to Bootstrap defined class CSS -->
 
 <table id=star_table class="table table-striped">
     <!-- Create a table header -->
@@ -70,38 +86,6 @@
     <!-- Again, id "star_table_body" is useful for jQuery to find this html element -->
     <tbody id=star_table_body></tbody>
 </table>
-Results Per Page
-<select id="results" onchange="changeResult()">
-    <option value="10">
-        10
-    </option>
-    <option value="25">
-        25
-    </option>
-    <option value="50">
-        50
-    </option>
-    <option value="100">
-        100
-    </option>
-</select>
-<button onclick="prevPage()">Previous</button>
-<button onclick="nextPage()">Next</button>
-<select id="order" onchange="changeOrder()">
-    <option value="m.title ASC, r.rating ASC">
-        Title - Asc
-    </option>
-    <option value="m.title DESC, r.rating DESC">
-        Title - Dsc
-    </option>
-    <option value="r.rating ASC, m.title ASC">
-        Ranking - Asc
-    </option>
-    <option value="r.rating DESC, m.title DESC">
-        Ranking - Dsc
-    </option>
-</select>
-
 <!-- Load jQuery and Bootstrap JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>

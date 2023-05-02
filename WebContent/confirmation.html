@@ -3,20 +3,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Fablix</title>
-</head>
-<style>
-    table, th, td {
-        border:1px solid black;
-    }
-</style>
-<button onclick="window.location.href = 'search.jsp';">HOME</button>
-<button onclick="window.location.href = 'cart.html';">Cart</button>
+    <title>Confirmation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
 
-<body BGCOLOR="#FDF5E6">
-<h2>Confirmation</h2>
-<table id="item_list"></table>
-<h3>Total:</h3>
+</head>
+<div class="topnav">
+    <a>Confirmation</a>
+    <a style="float: right" onclick="window.location.href = 'cart.html';"><i class="fa fa-shopping-cart"></i></a>
+    <a style="float: right" onclick="window.location.href = 'search.jsp';"><i class="fa fa-home"></i></a>
+</div>
+
+<table width="100%">
+    <thead style='text-align: left'>
+    <th>Movie</th>
+    <th>Amount</th>
+    <th style='text-align: right'>Price</th>
+    </thead>
+    <tbody id="item_list">
+
+    </tbody>
+</table>
 <h3 id="total_cost"></h3>
 <h1>saleid: 13574</h1>
 

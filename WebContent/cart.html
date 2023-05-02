@@ -3,33 +3,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Fablix</title>
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
-<style>
-    table, th, td {
-        border:1px solid black;
-    }
-</style>
+
 <body>
-<button onclick="window.location.href = 'search.jsp';">HOME</button>
-<h1>Shopping Cart</h1>
 
+<div class="topnav">
+    <a>Shopping Cart</a>
+    <a style="float: right" onclick="window.location.href = 'search.jsp';"><i class="fa fa-home"></i></a>
 
+</div>
 <form ACTION="#" id="cart" METHOD="post">
 
 </form>
-<table >
-    <thead>
+<table width="100%">
+    <thead style='text-align: left'>
         <th>Movie</th>
         <th>Amount</th>
-        <th>Price</th>
+        <th style='text-align: right'>Price</th>
+        <th  style='text-align: right'></th>
     </thead>
     <tbody id="item_list">
 
     </tbody>
 </table>
-<h3>Total Cost:</h3>
-<h3 id="total_cost"></h3>
 <div id="checkout"></div>
 
 <!-- include your own JS file -->
