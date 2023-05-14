@@ -33,14 +33,7 @@ function handleLoginResult(resultDataString) {
  * @param formSubmitEvent
  */
 function submitLoginForm(formSubmitEvent) {
-    console.log("submit login form");
-    /**
-     * When users click the submit button, the browser will not direct
-     * users to the url defined in HTML form. Instead, it will call this
-     * event handler when the event is triggered.
-     */
     formSubmitEvent.preventDefault();
-
     $.ajax(
         "api/login", {
             method: "POST",

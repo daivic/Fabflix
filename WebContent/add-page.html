@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Movie</title>
+</head>
+<link rel="stylesheet" href="style.css">
+<body>
+<h1 class="topnav"> Add Page</h1>
+<form id="addMovieForm" METHOD="POST">
+  <input TYPE="TEXT" name="title" placeholder="Title" required>
+  <input TYPE="TEXT" name="director" placeholder="Director" required>
+  <input TYPE="TEXT" name="star" placeholder="Star" required>
+  <input TYPE="TEXT" name="year" placeholder="Date" required>
+  <input TYPE="TEXT" name="genre" placeholder="Genre" required>
+
+  <input TYPE="SUBMIT" VALUE="Add Movie">
+
+</form>
+<form id="addStarForm" METHOD="POST">
+    <input TYPE="TEXT" name="star" placeholder="Star" required>
+    <input TYPE="TEXT" name="year" placeholder="Birth Year">
+    <input TYPE="SUBMIT" VALUE="Add Star">
+
+</form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="add-movie.js"></script>
+<script src="add-star.js"></script>
+
+
+</body>
+</html>

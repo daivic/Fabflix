@@ -50,6 +50,11 @@ public class SaleServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         PrintWriter out = response.getWriter();
+        try {
+            dataSource = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/moviedb");
+        } catch (NamingException e) {
+            e.printStackTrace();
+        }
         System.out.println("posting");
         try {
 

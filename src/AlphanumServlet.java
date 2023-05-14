@@ -43,7 +43,11 @@ public class AlphanumServlet extends HttpServlet {
 
         // Output stream to STDOUT
         PrintWriter out = response.getWriter();
-
+        try {
+            dataSource = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/moviedb");
+        } catch (NamingException e) {
+            e.printStackTrace();
+        }
         // Building page head with title
         //out.println("<html><head><title>MovieDBExample: Found Records</title></head>");
 
