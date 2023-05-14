@@ -13,7 +13,7 @@ function handleAddMovie(resultDataString){
 function addMovie(formSubmitEvent) {
     formSubmitEvent.preventDefault();
     $.ajax(
-        "api/addmovie", {
+        "_dashboard/api/addmovie", {
             method: "POST",
             // Serialize the login form to the data sent by POST request
             data: addmovie_form.serialize(),

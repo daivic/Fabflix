@@ -15,7 +15,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 
-@WebServlet(name = "AddMovieServlet", urlPatterns = "/api/addmovie")
+@WebServlet(name = "AddMovieServlet", urlPatterns = "/_dashboard/api/addmovie")
 public class AddMovieServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

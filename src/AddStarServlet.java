@@ -16,7 +16,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-@WebServlet(name = "AddStarServlet", urlPatterns = "/api/addstar")
+@WebServlet(name = "AddStarServlet", urlPatterns = "/_dashboard/api/addstar")
 public class AddStarServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private DataSource dataSource;

@@ -11,7 +11,7 @@ function addStar(formSubmitEvent) {
     console.log("entered addstar");
     formSubmitEvent.preventDefault();
     $.ajax(
-        "api/addstar", {
+        "_dashboard/api/addstar", {
             method: "POST",
             // Serialize the login form to the data sent by POST request
             data: addstar_form.serialize(),
