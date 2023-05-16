@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add Movie</title>
+    <title>Dashboard</title>
 </head>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../style.css">
 <body>
-<h1 class="topnav"> Add Page</h1>
+<h1 class="topnav"> Dashboard</h1>
 <form id="addMovieForm" METHOD="POST">
   <input TYPE="TEXT" name="title" placeholder="Title" required>
   <input TYPE="TEXT" name="director" placeholder="Director" required>
@@ -23,6 +23,67 @@
     <input TYPE="SUBMIT" VALUE="Add Star">
 
 </form>
+
+<div id="message"></div>
+
+<h2>Metadata</h2>
+<dl>
+    <dt>creditcards</dt>
+    <dd>id</dd>
+    <dd>firstname</dd>
+    <dd>lastname</dd>
+    <dd>expiration</dd>
+
+    <dt>customers</dt>
+    <dd>id</dd>
+    <dd>firstname</dd>
+    <dd>lastname</dd>
+    <dd>ccId</dd>
+    <dd>address</dd>
+    <dd>email</dd>
+    <dd>password</dd>
+
+    <dt>employees</dt>
+    <dd>email</dd>
+    <dd>password</dd>
+    <dd>fullname</dd>
+
+    <dt>genres</dt>
+    <dd>id</dd>
+    <dd>name</dd>
+
+    <dt>genres_in_movies</dt>
+    <dd>genreId</dd>
+    <dd>movieId</dd>
+
+    <dt>movies</dt>
+    <dd>id</dd>
+    <dd>title</dd>
+    <dd>year</dd>
+    <dd>director</dd>
+
+    <dt>ratings</dt>
+    <dd>movieId</dd>
+    <dd>rating</dd>
+    <dd>numVotes</dd>
+
+    <dt>sales</dt>
+    <dd>id</dd>
+    <dd>customerId</dd>
+    <dd>movieId</dd>
+    <dd>saleDate</dd>
+
+
+    <dt>stars</dt>
+    <dd>id</dd>
+    <dd>name</dd>
+    <dd>birthYear</dd>
+
+    <dt>stars_in_movies</dt>
+    <dd>starId</dd>
+    <dd>movieId</dd>
+</dl>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="add-movie.js"></script>

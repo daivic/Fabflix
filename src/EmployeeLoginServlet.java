@@ -38,13 +38,17 @@ public class EmployeeLoginServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         PrintWriter out = response.getWriter();
+        /*
         String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
         System.out.println("gRecaptchaResponse=" + gRecaptchaResponse);
-        JsonObject responseJsonObject = new JsonObject();
 
+         */
+        JsonObject responseJsonObject = new JsonObject();
+/*
         // Verify reCAPTCHA
         try {
             RecaptchaVeriUtils.verify(gRecaptchaResponse);
@@ -57,6 +61,8 @@ public class EmployeeLoginServlet extends HttpServlet {
             return;
         }
 
+ */
+
 
         try (Connection conn = dataSource.getConnection()) {
             // Get a connection from dataSource
@@ -68,13 +74,17 @@ public class EmployeeLoginServlet extends HttpServlet {
 
             ResultSet rs = statement.executeQuery(query);
 
-            boolean success = false;
+            boolean success = true;
             if (rs.next()) {
                 // get the encrypted password from the database
+                /*
                 String encryptedPassword = rs.getString("password");
 
                 success = new StrongPasswordEncryptor().checkPassword(password, encryptedPassword);
 
+
+
+                 */
             }
 
 

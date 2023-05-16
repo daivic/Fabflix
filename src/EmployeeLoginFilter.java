@@ -20,7 +20,6 @@ public class EmployeeLoginFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-        System.out.println("LoginFilter: " + httpRequest.getRequestURI());
 
         // Check if this URL is allowed to access without logging in
         if (this.isUrlAllowedWithoutLogin(httpRequest.getRequestURI())) {
@@ -30,7 +29,7 @@ public class EmployeeLoginFilter implements Filter {
         }
 
         if (httpRequest.getSession().getAttribute("employee") == null) {
-            httpResponse.sendRedirect("/employee-login.html");
+            httpResponse.sendRedirect("employee-login.html");
         } else {
             chain.doFilter(request, response);
         }

@@ -16,7 +16,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-@WebServlet(name = "AddStarServlet", urlPatterns = "/_dashboard/api/addstar")
+@WebServlet(name = "AddStarServlet", urlPatterns = "/api/addstar")
 public class AddStarServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private DataSource dataSource;
@@ -43,25 +43,37 @@ public class AddStarServlet extends HttpServlet {
         }
         // Get a connection from dataSource and let resource manager close the connection after usage.
         try (Connection conn = dataSource.getConnection()) {
-            System.out.println("Entered try");
+
             String star = request.getParameter("star");
             String year = request.getParameter("year");
+
             System.out.println(star);
             System.out.println(year);
 
 
-            Statement statement = conn.createStatement();
+            CallableStatement statement = conn.prepareCall("{call add_star(?, ?)}");
 
-            String query  = "INSERT IGNORE INTO stars(id, name, birthYear) SELECT CONCAT('nm', MAX(SUBSTRING(id, 3)) + 1), '"+star+"', '"+year+"' FROM stars;";
-            statement.executeQuery(query);
-            System.out.println("executed query");
+            statement.setString(1, star);
+            statement.setString(2, year);
 
+            statement.execute();
+
+            System.out.println("executed");
+
+            ResultSet rs = statement.getResultSet();
+            rs.next();
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("message", "SUCCESS");
+            jsonObject.addProperty("message", rs.getString("message"));
+            System.out.println("finished");
+
+
+
             out.write(jsonObject.toString());
 
-
-
+            statement.close();
+            conn.close();
+            rs.close();
+            response.setStatus(200);
 
 
         } catch (Exception e) {

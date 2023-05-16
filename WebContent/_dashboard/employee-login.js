@@ -12,7 +12,7 @@ function handleLoginResult(resultDataString) {
     console.log(resultDataJson["status"]);
 
     if (resultDataJson["status"] === "success") {
-        window.location.replace("_dashboard/add-page.html");
+        window.location.replace("add-page.html");
     }
     else if(resultDataJson["status"] === "ReCaptchaFail"){
         console.log("recaptcha doesn't work");
@@ -33,8 +33,9 @@ function handleLoginResult(resultDataString) {
  */
 function submitLoginForm(formSubmitEvent) {
     formSubmitEvent.preventDefault();
+    console.log(login_form.serialize());
     $.ajax(
-        "api/employee-login", {
+        "../api/employee-login", {
             method: "POST",
             // Serialize the login form to the data sent by POST request
             data: login_form.serialize(),

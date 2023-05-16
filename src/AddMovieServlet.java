@@ -15,7 +15,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 
-@WebServlet(name = "AddMovieServlet", urlPatterns = "/_dashboard/api/addmovie")
+@WebServlet(name = "AddMovieServlet", urlPatterns = "/api/addmovie")
 public class AddMovieServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -50,7 +50,6 @@ public class AddMovieServlet extends HttpServlet {
             String star = request.getParameter("star");
             String year = request.getParameter("year");
 
-            System.out.println("started addmovie");
 
             CallableStatement statement = conn.prepareCall("{call add_movie(?, ?, ?, ?, ?)}");
             statement.setString(1, title);
@@ -59,22 +58,12 @@ public class AddMovieServlet extends HttpServlet {
             statement.setString(4, star);
             statement.setString(5, year);
 
-            System.out.println(statement);
-
             statement.execute();
             ResultSet rs = statement.getResultSet();
-
-            System.out.println("executed");
-            System.out.println(rs);
-
             rs.next();
-
-            System.out.println(rs);
-
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("message", rs.getString("message"));
 
-            System.out.println(jsonObject.toString());
 
 
 

@@ -22,8 +22,6 @@ function handleLoginResult(resultDataString) {
     else {
         // If login fails, the web page will display 
         // error messages on <div> with id "login_error_message"
-        console.log("show error message");
-        console.log(resultDataJson["message"]);
         $("#login_error_message").text(resultDataJson["message"]);
     }
 }
