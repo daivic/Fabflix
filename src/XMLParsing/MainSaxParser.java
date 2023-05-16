@@ -225,7 +225,7 @@ public class MainSaxParser extends DefaultHandler {
             SAXParser sp = spf.newSAXParser();
 
             //parse the file and also register this class for call backs
-            sp.parse("src/XMLParsing/stanford-movies.tar/mains243.xml", this);
+            sp.parse("src/XMLParsing/stanford-movies/mains243.xml", this);
 
         } catch (SAXException se) {
             se.printStackTrace();
