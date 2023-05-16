@@ -60,7 +60,7 @@ public class ActorSaxParser extends DefaultHandler {
             SAXParser sp = spf.newSAXParser();
 
             //parse the file and also register this class for call backs
-            sp.parse("src/XMLParsing/actors63.xml", this);
+            sp.parse("src/XMLParsing/stanford-movies.tar/actors63.xml", this);
 
         } catch (SAXException se) {
             se.printStackTrace();

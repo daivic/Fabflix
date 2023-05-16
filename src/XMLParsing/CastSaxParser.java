@@ -68,7 +68,7 @@ public class CastSaxParser extends DefaultHandler {
             SAXParser sp = spf.newSAXParser();
 
             //parse the file and also register this class for call backs
-            sp.parse("src/XMLParsing/casts124.xml", this);
+            sp.parse("src/XMLParsing/stanford-movies.tar/casts124.xml", this);
 
         } catch (SAXException se) {
             se.printStackTrace();
