@@ -46,27 +46,22 @@ public class LoginServlet extends HttpServlet {
         /  in the real project, you should talk to the database to verify username/password
         */
         PrintWriter out = response.getWriter();
-        /*
-        String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
-        System.out.println("gRecaptchaResponse=" + gRecaptchaResponse);
+//        String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
+//        System.out.println("gRecaptchaResponse=" + gRecaptchaResponse);
 
-         */
         JsonObject responseJsonObject = new JsonObject();
 
-        // Verify reCAPTCHA
-        /*
-        try {
-            RecaptchaVeriUtils.verify(gRecaptchaResponse);
-        } catch (Exception e) {
-            responseJsonObject.addProperty("status", "ReCaptchaFail");
-            responseJsonObject.addProperty("message", e.getMessage());
-
-            response.getWriter().write(responseJsonObject.toString());
-
-            return;
-        }
-
-         */
+//        // Verify reCAPTCHA
+//        try {
+//            RecaptchaVeriUtils.verify(gRecaptchaResponse);
+//        } catch (Exception e) {
+//            responseJsonObject.addProperty("status", "ReCaptchaFail");
+//            responseJsonObject.addProperty("message", e.getMessage());
+//
+//            response.getWriter().write(responseJsonObject.toString());
+//
+//            return;
+//        }
 
 
         try (Connection conn = dataSource.getConnection()) {
@@ -79,18 +74,15 @@ public class LoginServlet extends HttpServlet {
 
             ResultSet rs = statement.executeQuery(query);
 
-            boolean success = false;
+            boolean success = true;
             if (rs.next()) {
                 // get the encrypted password from the databas
-                /*
-                String encryptedPassword = rs.getString("password");
 
-                // use the same encryptor to compare the user input password with encrypted password stored in DB
+           /*     String encryptedPassword = rs.getString("password");
                 success = new StrongPasswordEncryptor().checkPassword(password, encryptedPassword);
 
+*/
 
-                 */
-                success = true;
             }
 
 

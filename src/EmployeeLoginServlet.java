@@ -42,26 +42,10 @@ public class EmployeeLoginServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         PrintWriter out = response.getWriter();
-        /*
-        String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
-        System.out.println("gRecaptchaResponse=" + gRecaptchaResponse);
 
-         */
         JsonObject responseJsonObject = new JsonObject();
-/*
-        // Verify reCAPTCHA
-        try {
-            RecaptchaVeriUtils.verify(gRecaptchaResponse);
-        } catch (Exception e) {
-            responseJsonObject.addProperty("status", "ReCaptchaFail");
-            responseJsonObject.addProperty("message", e.getMessage());
 
-            response.getWriter().write(responseJsonObject.toString());
 
-            return;
-        }
-
- */
 
 
         try (Connection conn = dataSource.getConnection()) {
