@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import java.sql.PreparedStatement;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -85,7 +86,7 @@ public class SaleServlet extends HttpServlet {
         insertQuery += String.format("FROM customers c, movies m\n" +
                 "WHERE c.ccID = '%1$s'", CCNum);
         insertQuery += String.format(" AND m.title = '%1$s';", movieName);
-        System.out.println(insertQuery);
+        //System.out.println(insertQuery);
         PreparedStatement statement2 = dbCon.prepareStatement(insertQuery);
         int test = statement2.executeUpdate();
         String getQuery = "SELECT id From sales\n" +

@@ -62,7 +62,7 @@ public class CheckoutServlet extends HttpServlet {
             Connection dbCon = dataSource.getConnection();
 
             // Declare a new statement
-            Statement statement = dbCon.createStatement();
+            //Statement statement = dbCon.createStatement();
 
             // Retrieve parameter "name" from the http request, which refers to the value of <input name="name"> in movielist.html
             String firstName = request.getParameter("firstName");
@@ -77,6 +77,8 @@ public class CheckoutServlet extends HttpServlet {
             query += String.format("AND id = '%1$s' \n", CCNum);
             query += String.format("AND expiration = '%1$s';", expDate);
 
+
+            PreparedStatement statement = dbCon.prepareStatement(query);
 
             // Log to localhost log
             request.getServletContext().log("query：" + query);

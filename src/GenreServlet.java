@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -61,7 +62,7 @@ public class GenreServlet extends HttpServlet {
             Connection dbCon = dataSource.getConnection();
 
             // Declare a new statement
-            Statement statement = dbCon.createStatement();
+            //Statement statement = dbCon.createStatement();
 
             // Retrieve parameter "name" from the http request, which refers to the value of <input name="name"> in movielist.html
             String genre = request.getParameter("genre");
@@ -98,6 +99,8 @@ public class GenreServlet extends HttpServlet {
 
             // Log to localhost log
             request.getServletContext().log("query：" + query);
+
+            PreparedStatement statement = dbCon.prepareStatement(query);
 
             // Perform the query
             ResultSet rs = statement.executeQuery(query);
