@@ -1,5 +1,4 @@
-GOOGLE DRIVE LINK: https://discord.com/channels/@me/1075862101182120027/1107921328377438238
-
+GOOGLE DRIVE LINK: https://drive.google.com/file/d/1YG0lLDpo7asvbjuiorxRyPhyy57CYY_P/view?usp=sharing
 Daivic:
 
 Employee Login Page
