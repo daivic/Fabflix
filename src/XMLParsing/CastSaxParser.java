@@ -116,8 +116,8 @@ public class CastSaxParser extends DefaultHandler {
 
     public void getBothIds() throws NamingException, SQLException {
         String url = "jdbc:mysql://localhost:3306/moviedb"; // url for the database
-        String user = "root"; // replace with your MySQL username
-        String password = "Supereverett_4590"; // replace with your MySQL password
+        String user = "mytestuser"; // replace with your MySQL username
+        String password = "My6$TestUser"; // replace with your MySQL password
 
         try {
             // connect to the database using the DriverManager
