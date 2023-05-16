@@ -1,18 +1,19 @@
-YOUTUBE VIDEO: https://youtu.be/JBBl__wjntI
+GOOGLE DRIVE LINK: https://drive.google.com/file/d/1Wxu22FkOu0-BDx5Iqx_CTla5OL0gudBx/view?usp=share_link
 
 Daivic:
 
--Pagination and Sorting
--Shopping Cart Page
--Confirmation Page
+Employee Login Page
+Employee Dashboard
+Add Movie
+Add Star
+METADATA
 
 Everett:
 
-- Single Movie Page
--Searching Functionality
--Payment Page
--Login
+XML Parsing
+RECAPTCHA
+ENCRYPTION
+HTTPS
 
 
-For our searching we used full pattern matching ("%asf%") so that results would show up as long as the user inputted string appeared anywhere in the link.)
 
