@@ -5,19 +5,19 @@ public class Movies {
 
     private String title;
 
-    private String year;
+    private int year;
 
     private String director;
 
     private String id = "asdf";
 
-    private String genres;
+    private String[] genres;
 
     public Movies(){
 
     }
 
-    public Movies(String title, String id, String year,String director, String genres) {
+    public Movies(String title, String id, int year,String director, String[] genres) {
         this.title = title;
         this.year = year;
         this.id  = id;
@@ -25,11 +25,11 @@ public class Movies {
         this.genres = genres;
 
     }
-    public String getYear() {
+    public int getYear() {
         return year;
     }
 
-    public void setYear(String year) {
+    public void setYear(int year) {
         this.year = year;
     }
 
@@ -41,11 +41,11 @@ public class Movies {
         this.id = id;
     }
 
-    public String getGenres() {
+    public String[] getGenres() {
         return genres;
     }
 
-    public void setGenres(String genres) {
+    public void setGenres(String[] genres) {
         this.genres = genres;
     }
 

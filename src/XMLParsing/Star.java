@@ -5,7 +5,7 @@ public class Star {
 
     private String name;
 
-    private String birth;
+    private int birth;
 
     private String id = "asdf";
 
@@ -14,17 +14,17 @@ public class Star {
 
     }
 
-    public Star(String name, String id, String birth) {
+    public Star(String name, String id, int birth) {
         this.name = name;
         this.birth = birth;
         this.id  = id;
 
     }
-    public String getBirth() {
+    public int getBirth() {
         return birth;
     }
 
-    public void setBirth(String birth) {
+    public void setBirth(int birth) {
         this.birth = birth;
     }
 

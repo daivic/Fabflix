@@ -1,9 +1,11 @@
 package XMLParsing;
 
 
+import java.util.ArrayList;
+
 public class Cast {
 
-    private String name;
+    ArrayList<String> cast = new ArrayList<String>();
 
     private String movie;
 
@@ -13,8 +15,8 @@ public class Cast {
 
     }
 
-    public Cast(String name, String movie) {
-        this.name = name;
+    public Cast(ArrayList<String> cast, String movie) {
+        this.cast = cast;
         this.movie = movie;
 
     }
@@ -29,19 +31,20 @@ public class Cast {
 
 
 
-    public String getName() {
-        return name;
+    public ArrayList<String> getCast() {
+        return cast;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCast(String name) {
+
+        this.cast.add(name);
     }
 
 
     public String toString() {
         StringBuffer sb = new StringBuffer();
         sb.append("Cast Details - ");
-        sb.append("Name:" + getName());
+        sb.append("Cast:" + getCast());
         sb.append(", ");
         sb.append("Movie:" + getMovie());
         sb.append(".");
