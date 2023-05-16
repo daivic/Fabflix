@@ -14,6 +14,8 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
+
 
 /**
  * A servlet that takes input from a html <form> and talks to MySQL moviedbexample,
@@ -61,7 +63,7 @@ public class AlphanumServlet extends HttpServlet {
             Connection dbCon = dataSource.getConnection();
 
             // Declare a new statement
-            Statement statement = dbCon.createStatement();
+            //Statement statement = dbCon.createStatement();
 
             // Retrieve parameter "name" from the http request, which refers to the value of <input name="name"> in movielist.html
             String alphaNum = request.getParameter("first")+"%";
@@ -94,9 +96,11 @@ public class AlphanumServlet extends HttpServlet {
                     String.format("OFFSET %1$s;", offset);
             //out.write(query);
 
-
+            //System.out.println(query);
             // Log to localhost log
             request.getServletContext().log("query：" + query);
+
+            PreparedStatement statement = dbCon.prepareStatement(query);
 
             // Perform the query
             ResultSet rs = statement.executeQuery(query);

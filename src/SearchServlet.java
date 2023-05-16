@@ -1,6 +1,7 @@
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import java.sql.PreparedStatement;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import jakarta.servlet.ServletConfig;
@@ -62,7 +63,7 @@ public class SearchServlet extends HttpServlet {
             Connection dbCon = dataSource.getConnection();
 
             // Declare a new statement
-            Statement statement = dbCon.createStatement();
+            //Statement statement = dbCon.createStatement();
 
             // Retrieve parameter "name" from the http request, which refers to the value of <input name="name"> in movielist.html
             String title = "%" +request.getParameter("title")+"%";
@@ -100,27 +101,11 @@ public class SearchServlet extends HttpServlet {
             query += String.format("LIMIT %1$s\n", results);
             query += String.format("OFFSET %1$s;", offset);
 
-//            String query = String.format("SELECT m.title, m.year, m.director\n" +
-//                    "FROM movies m\n" +
-//                    "INNER JOIN stars_in_movies sim ON m.id = sim.movieId\n" +
-//                   "INNER JOIN stars s ON s.id = sim.starId\n" +
-//                    "WHERE (m.title LIKE '%%'or m.title is null)\n"+
-//            "AND (m.director LIKE '%%' or m.director is null)\n"+
-//            "AND (s.name LIKE '%s' or s.name is null)\n"+
-//            "AND (m.year = 2004 or m.year is null);", name);
-
-//            String query = "SELECT m.title, m.year, m.director\n" +
-//                    "FROM movies m\n" +
-//                    "INNER JOIN stars_in_movies sim ON m.id = sim.movieId\n" +
-//                    "INNER JOIN stars s ON s.id = sim.starId\n" +
-//                    "WHERE (m.title LIKE '%Terminal%'or m.title is null)\n" +
-//                    "AND (m.director LIKE '%%' or m.director is null)\n" +
-//                    "AND (s.name LIKE '%Tom Hanks%' or s.name is null)\n" +
-//                    "AND (m.year = 2004 or m.year is null);";
-
-
             // Log to localhost log
-            request.getServletContext().log("query：" + query);
+            //request.getServletContext().log("query：" + query);
+
+            System.out.println(query);
+            PreparedStatement statement = dbCon.prepareStatement(query);
 
             // Perform the query
             ResultSet rs = statement.executeQuery(query);

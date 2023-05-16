@@ -57,11 +57,19 @@ public class AddMovieServlet extends HttpServlet {
             statement.setString(3, genre);
             statement.setString(4, star);
             statement.setString(5, year);
+            System.out.println(statement);
+            System.out.println("fdsa");
+
 
             statement.execute();
+            System.out.println("testing");
             ResultSet rs = statement.getResultSet();
+            System.out.println("asdf");
+
             rs.next();
             JsonObject jsonObject = new JsonObject();
+            System.out.println("testiasadfdfsng");
+
             jsonObject.addProperty("message", rs.getString("message"));
 
 
