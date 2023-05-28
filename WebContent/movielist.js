@@ -36,7 +36,10 @@ let movieStar = getParameterByName('star');
 let movieYear = getParameterByName('year');
 let movieGenre = getParameterByName('genre');
 let movieAlphaNum = getParameterByName('first');
+let fullMovie = getParameterByName('movietitle');
 
+
+console.log(fullMovie);
 renderList();
 
 
@@ -143,6 +146,8 @@ function prevPage(){
     }
 }
 function renderList(){
+    console.log("api/fullSearch?title=" + fullMovie + "&results=" + results+ "&offset=" + currentPage*results + "&order=" + order);
+
     if (movieGenre != null){
         jQuery.ajax({
             dataType: "json", // Setting return data type
@@ -156,6 +161,14 @@ function renderList(){
             dataType: "json", // Setting return data type
             method: "GET", // Setting request method
             url: "api/browseAlpha?first=" + movieAlphaNum + "&results=" + results+ "&offset=" + currentPage*results + "&order=" + order,
+            success: (resultData) => handleStarResult(resultData) // Setting callback function to handle data returned successfully by the StarsServlet
+        });
+    }
+    else if (fullMovie != null){
+        jQuery.ajax({
+            dataType: "json", // Setting return data type
+            method: "GET", // Setting request method
+            url: "api/fullSearch?title=" + fullMovie + "&results=" + results+ "&offset=" + currentPage*results + "&order=" + order,
             success: (resultData) => handleStarResult(resultData) // Setting callback function to handle data returned successfully by the StarsServlet
         });
     }
