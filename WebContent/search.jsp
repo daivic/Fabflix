@@ -72,11 +72,11 @@
 <script>
     function handleLookup(query, doneCallback) {
         console.log("autocomplete initiated")
-        console.log("sending AJAX request to backend Java Servlet")
 
         // TODO: if you want to check past query results first, you can do it here
         if(localStorage.getItem(query)!= null){
             console.log("autocomplete data retrieved from local storage cache")
+            console.log(localStorage.getItem(query));
             handleLookupAjaxSuccess(localStorage.getItem(query), query, doneCallback)
 
         }
@@ -90,7 +90,9 @@
                 "url": "movie-suggestion?query=" + escape(query),
                 "success": function (data) {
                     // pass the data, query, and doneCallback function into the success handler
-                    console.log("autocomplete data retrieved from sql server")
+                    console.log("autocomplete data retrieved from ajax request to server")
+                    localStorage.setItem(query, data);
+                    console.log(data);
                     handleLookupAjaxSuccess(data, query, doneCallback)
                 },
                 "error": function (errorData) {
@@ -110,13 +112,11 @@
      *
      */
     function handleLookupAjaxSuccess(data, query, doneCallback) {
-        console.log("lookup ajax successful")
         // parse the string into JSON
         var jsonData = JSON.parse(data);
         //console.log(jsonData)
         //var jsonData = data;
         // TODO: if you want to cache the result into a global variable you can do it here
-        localStorage.setItem(query, data);
 
         // call the callback function provided by the autocomplete library
         // add "{suggestions: jsonData}" to satisfy the library response format according to
@@ -135,7 +135,7 @@
         // TODO: jump to the specific result page based on the selected suggestion
         window.location.href= "single-movie.html?id="+suggestion["data"]["movieId"];
 
-        console.log("you select " + suggestion["value"] + " with ID " + suggestion["data"]["movieId"])
+        //console.log("you select " + suggestion["value"] + " with ID " + suggestion["data"]["movieId"])
     }
 
 
