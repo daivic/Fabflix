@@ -52,7 +52,6 @@ public class MovieListActivity extends AppCompatActivity {
                 baseURL + "/api/fullSearch?title="+addToURL, new JSONArray(),
 
                 response -> {
-                    Log.d("test.error","gay");
 
 
                     try {
